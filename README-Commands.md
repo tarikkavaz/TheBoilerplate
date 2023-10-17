@@ -11,13 +11,13 @@ docker-compose exec backend python manage.py loaddata datadump.json &&
 docker-compose down
 ```
 
-# Local Development Setup
+# Local Development Server
 ```bash
 docker-compose up --build
 ```
 Stop the Development Server with Control-C.
 
-# Server Buil Setup
+# Server Build
 
 Go to the folder where the docker-compose.prod.yml file is located and run the following command:
 
