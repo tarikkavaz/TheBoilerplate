@@ -23,33 +23,27 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     ```
     On the deployment server, it's crucial to update the `API_BASE_URL` and `CLIENT_BASE_URL` with your respective values within the specified file.
 
-3. **Install Frontend Dependencies and Build**
-    ```bash
-    (cd frontend && yarn)
-    (cd frontend && yarn build)
-    ```
-
-4. **Build and Run Docker Containers**
+3. **Build and Run Docker Containers**
     ```bash
     docker-compose up --build
     ```
 
-5. **Initialize Django Database**
+4. **Initialize Django Database**
     ```bash
     docker-compose exec backend python manage.py migrate
     ```
 
-6. **Load Sample Data (Optional)**
+5. **Load Sample Data (Optional)**
     ```bash
     docker-compose exec backend python manage.py loaddata datadump.json
     ```
 
-7. **Create Django Superuser (Optional)**
+6. **Create Django Superuser (Optional)**
     ```bash
     docker-compose exec backend python manage.py createsuperuser
     ```
 
-8. **Access the Application**
+7. **Access the Application**
 
     - Open [http://0.0.0.0:3000](http://0.0.0.0:3000) for the site. 
     - Open [http://0.0.0.0:8000/api](http://0.0.0.0:8000/api) for the API. 
