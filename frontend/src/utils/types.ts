@@ -1,8 +1,5 @@
 import { ReactNode } from "react";
 
-// ==========================
-// === Metadata & Layout ===
-// ==========================
 export interface MetadataProps {
   params: {
     slug: string;
@@ -18,14 +15,50 @@ export interface Layout {
     subPageDescription?: string;
   };
 }
+export interface NavItem {
+  title: string;
+  link: string;
+  children?: ChildItem[];
+};
 
-// ==========================
-// === Content & Homepage ===
-// ==========================
-export interface ContentImage {
+export interface ChildItem {
+  newtab: boolean | undefined;
+  title: string;
+  link: string;
+  description: string;
+};
+
+export interface MobileMenuProps {
+  navigationData: NavItem[];
+}
+
+export interface MenuItem {
   id: number;
-  image: string;
-  alt_text: string;
+  title: string;
+  link: string;
+  order: number;
+  parent: number | null;
+  page_slug: string | null;
+  newtab: boolean;
+  children: Submenu[] | null;
+}
+
+export interface Submenu {
+  newtab: boolean | undefined;
+  description: ReactNode;
+  title: string;
+  link: string;
+  icon?: string;
+}
+
+export interface NavbarProps {
+  links: MenuItem[];
+}
+
+export interface HomeProps {
+  params: {
+    locale: string;
+  };
 }
 
 export interface Homepage {
@@ -39,15 +72,22 @@ export interface Homepage {
   posts?: Post[];
 }
 
-export interface HomeProps {
-  params: {
-    locale: string;
-  };
+export interface ContentImage {
+  id: number;
+  image: string;
+  alt_text: string;
 }
 
-// ==========================
-// === Page & Post Content ===
-// ==========================
+export interface Category {
+  title: string;
+  slug: string;
+}
+
+export interface Tag {
+  title: string;
+  slug: string;
+}
+
 export interface Page {
   id: number;
   title: string;
@@ -77,57 +117,4 @@ export interface Post {
   image: string | null;
   date_posted: string;
   lang: string;
-}
-
-export interface Category {
-  title: string;
-  slug: string;
-}
-
-export interface Tag {
-  title: string;
-  slug: string;
-}
-
-// ==========================
-// === Navigation & Menu ===
-// ==========================
-export interface NavItem {
-  title: string;
-  link: string;
-  children?: ChildItem[];
-}
-
-export interface ChildItem {
-  newtab: boolean | undefined;
-  title: string;
-  link: string;
-  description: string;
-}
-
-export interface MenuItem {
-  id: number;
-  title: string;
-  link: string;
-  order: number;
-  parent: number | null;
-  page_slug: string | null;
-  newtab: boolean;
-  children: Submenu[] | null;
-}
-
-export interface Submenu {
-  newtab: boolean | undefined;
-  description: ReactNode;
-  title: string;
-  link: string;
-  icon?: string;
-}
-
-export interface NavbarProps {
-  links: MenuItem[];
-}
-
-export interface MobileMenuProps {
-  navigationData: NavItem[];
 }
