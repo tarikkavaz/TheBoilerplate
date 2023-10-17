@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 
-// METADATA
+// ==========================
+// === Metadata & Layout ===
+// ==========================
 export interface MetadataProps {
   params: {
     slug: string;
@@ -8,7 +10,6 @@ export interface MetadataProps {
   };
 }
 
-// LAYOUT
 export interface Layout {
   children: ReactNode;
   params: {
@@ -18,7 +19,15 @@ export interface Layout {
   };
 }
 
-// HOMEPAGE
+// ==========================
+// === Content & Homepage ===
+// ==========================
+export interface ContentImage {
+  id: number;
+  image: string;
+  alt_text: string;
+}
+
 export interface Homepage {
   id: number;
   images?: ContentImage[];
@@ -29,20 +38,16 @@ export interface Homepage {
   lang: string;
   posts?: Post[];
 }
+
 export interface HomeProps {
   params: {
     locale: string;
   };
 }
 
-//IMAGE
-export interface ContentImage {
-  id: number;
-  image: string;
-  alt_text: string;
-}
-
-// PAGE
+// ==========================
+// === Page & Post Content ===
+// ==========================
 export interface Page {
   id: number;
   title: string;
@@ -58,7 +63,6 @@ export interface Page {
   menu: boolean;
 }
 
-// POST
 export interface Post {
   id: number;
   categories: Category[];
@@ -74,27 +78,33 @@ export interface Post {
   date_posted: string;
   lang: string;
 }
+
 export interface Category {
   title: string;
   slug: string;
 }
+
 export interface Tag {
   title: string;
   slug: string;
 }
 
-// MENU
+// ==========================
+// === Navigation & Menu ===
+// ==========================
 export interface NavItem {
   title: string;
   link: string;
   children?: ChildItem[];
-};
+}
+
 export interface ChildItem {
   newtab: boolean | undefined;
   title: string;
   link: string;
   description: string;
-};
+}
+
 export interface MenuItem {
   id: number;
   title: string;
@@ -105,6 +115,7 @@ export interface MenuItem {
   newtab: boolean;
   children: Submenu[] | null;
 }
+
 export interface Submenu {
   newtab: boolean | undefined;
   description: ReactNode;
@@ -112,9 +123,11 @@ export interface Submenu {
   link: string;
   icon?: string;
 }
+
 export interface NavbarProps {
   links: MenuItem[];
 }
+
 export interface MobileMenuProps {
   navigationData: NavItem[];
 }
