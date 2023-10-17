@@ -22,6 +22,7 @@ export interface NavItem {
 };
 
 export interface ChildItem {
+  newtab: boolean | undefined;
   title: string;
   link: string;
   description: string;
@@ -43,6 +44,7 @@ export interface MenuItem {
 }
 
 export interface Submenu {
+  newtab: boolean | undefined;
   description: ReactNode;
   title: string;
   link: string;

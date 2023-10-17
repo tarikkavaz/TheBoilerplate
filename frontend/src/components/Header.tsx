@@ -199,6 +199,7 @@ function MobileMenu({
                                     key={child.title}
                                     title={child.title}
                                     href={child.link}
+                                    newtab={child.newtab}
                                   >
                                     {child.description}
                                   </ListItem>
@@ -278,6 +279,7 @@ export default function Header() {
                                 key={child.title}
                                 title={child.title}
                                 href={child.link}
+                                newtab={child.newtab}
                               >
                                 {child.description}
                               </ListItem>
@@ -321,6 +323,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           className="block p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
           target={newtab ? "_blank" : undefined}
+          rel={newtab ? "noopener noreferrer" : undefined}
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
