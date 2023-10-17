@@ -2,7 +2,9 @@
 
 This guide provides instructions for setting up and deploying TheBoilerplate project, which is a boilerplate for Next.js and Django projects using Docker.
 
-## Development Setup
+---
+
+## Initial Setup
 
 ### Prerequisites
 
@@ -25,7 +27,7 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
 
 3. **Build and Run Docker Containers**
     ```bash
-    docker-compose up --build
+    docker-compose up --build -d
     ```
 
 4. **Initialize Django Database**
@@ -42,14 +44,25 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     ```bash
     docker-compose exec backend python manage.py createsuperuser
     ```
+---
 
-7. **Access the Application**
+## Development Setup
+
+### Steps
+
+1. **Build and Run Docker Containers**
+    ```bash
+    docker-compose up --build
+    ```
+
+2. **Access the Application**
 
     - Open [http://0.0.0.0:3000](http://0.0.0.0:3000) for the site. 
     - Open [http://0.0.0.0:8000/api](http://0.0.0.0:8000/api) for the API. 
     - Open [http://0.0.0.0:8000/admin](http://0.0.0.0:8000/admin) for the Django Admin Panel. 
     ( u:`admin` p:`boilerplate123` ) 
 
+---
 
 ## Deployment Setup
 
