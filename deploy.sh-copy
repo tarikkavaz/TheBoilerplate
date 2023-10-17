@@ -3,7 +3,7 @@
 # Step 1: Dump the current data from the server into a new datadump.json
 # Change name xxxxxx of the ssh connection to your own
 # Change folder name yyyyyy 
-ssh -T xxxxxx << 'ENDSSH_DUMP'
+ssh -T xxxxxx << 'ENDSSH_DEPLOY'
   cd yyyyyy
   docker-compose down
   git pull
