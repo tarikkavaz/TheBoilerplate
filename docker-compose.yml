@@ -1,0 +1,41 @@
+version: '3.1'
+
+volumes:
+  images:
+
+networks:
+  mynetwork:
+    driver: bridge
+
+services:
+  backend:
+    env_file:
+      - frontend/.env
+    build: ./backend
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/backend
+      - images:/backend/media/images
+    environment:
+      - DEBUG=True
+    networks:
+      - mynetwork
+
+  frontend:
+    env_file:
+      - frontend/.env
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/frontend
+      - ./frontend/.next:/frontend/.next
+      - images:/frontend/public/media/images
+    networks:
+      - mynetwork
+    tty: true
+    stdin_open: true

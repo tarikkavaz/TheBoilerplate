@@ -1,0 +1,28 @@
+{
+  "Globals": {
+    "sitename": "TheBoilerplate",
+    "sitedescription": "Bu sitenin varsayilan açiklama metni",
+    "posts": "Yazılar",
+    "pages": "Sayfalar",
+    "language": "Dil",
+    "homepage": "Anasayfa",
+    "categories": "Kategoriler",
+    "category": "Kategori",
+    "tags": "Etiketler",
+    "tag": "Etiket",
+    "posted": "Yayın tarihi",
+    "filenotfoundtitle": "Sayfa bulunamadı",
+    "filenotfoundtext": "Lütfen tarayıcı adres çubuğunu iki kez kontrol edin veya bilinen bir sayfaya gitmek için gezinmeyi kullanın.",
+    "errortitle": "Bir şeyler yanlış gitti!",
+    "errortext": "Maalesef bir hata ile karşılaştık. Ziyaret ettiğiniz sayfayı yeniden yüklemeyi deneyin.",
+    "localeLable": "Dili değiştir",
+    "localeLocale": "{locale, select, tr {Türkçe} en {English} other {Unknown}}",
+    "button": "Buton",
+    "wait": "Lütfen Bekleyin"
+  },
+  "Navigation": {
+    "home": "Anasayfa",
+    "pages": "Sayfalar",
+    "posts": "Yazılar"
+  }
+}

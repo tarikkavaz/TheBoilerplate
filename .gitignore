@@ -1,0 +1,161 @@
+# OS generated files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+Recycle Bin used on file shares
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# Windows
+*.dll
+*.exe
+*.o
+*.obj
+*.log
+*.sys
+*.tmp
+*.temp
+*.bat
+*.cmd
+*.msi
+*.msp
+*.msm
+*.lnk
+Thumbs.db
+
+# IDEs and editors
+*.iml
+*.idea/
+*.swp
+*.swo
+*.swn
+*.sublime*
+*.tmproj
+*.tmproject
+tmtags
+*.komodoproject
+*.komodotools
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# Xcode
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+DerivedData/
+*.moved-aside
+*.xccheckout
+*.hmap
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.so
+*.app
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Node.js
+node_modules/
+npm-debug.log
+
+# TypeScript
+typings/
+
+# Frameworks build/output
+.next
+.nuxt
+dist
+.vuepress/dist
+
+# Python
+*.py[cod]
+__pycache__/
+collectedstatic/
+backend/static_root
+
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Java
+*.class
+*.war
+*.ear
+*.ctxt
+*.jar
+*.ser
+*.?ar
+*.jf?k
+*.pk?
+*.vk?
+*.hprof
+*.heapdump
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Gradle
+.gradle/
+build/
+
+# Virtual Environment
+venv/
+*.venv
+venv.bak/
+ENV/
+
+# Environment variables
+.env
+
+# Miscellaneous
+*.swp
+*.swo
+*.tmp
+*.o
+*.obj
+*.map
+*.state
+
+# db
+*.sqlite3
+
+# Deploy script
+deploy.sh

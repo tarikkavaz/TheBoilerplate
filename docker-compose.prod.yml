@@ -1,0 +1,40 @@
+version: '3.1'
+
+volumes:
+  images:
+
+networks:
+  mynetwork:
+    driver: bridge
+
+services:
+  backend:
+    env_file:
+      - frontend/.env
+    restart: unless-stopped 
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+    networks:
+      - mynetwork
+    volumes:
+      - ./static:/static
+      - images:/backend/media/images
+
+  frontend:
+    restart: unless-stopped
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+    env_file:
+      - frontend/.env
+    volumes:
+      - images:/frontend/public/media/images

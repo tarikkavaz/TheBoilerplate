@@ -1,0 +1,19 @@
+# Multi-stage build: First stage
+FROM node:18 AS builder
+WORKDIR /frontend
+COPY package.json yarn.lock ./
+RUN yarn
+COPY . .
+RUN yarn lint
+RUN yarn type-check
+RUN yarn build
+
+# Multi-stage build: Second stage
+FROM node:18
+WORKDIR /frontend
+COPY --from=builder /frontend/.next ./.next
+COPY --from=builder /frontend/node_modules ./node_modules
+COPY --from=builder /frontend/package.json ./package.json
+COPY --from=builder /frontend/public ./public
+
+CMD ["yarn", "start"]

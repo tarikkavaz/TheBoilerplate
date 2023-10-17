@@ -1,0 +1,28 @@
+{
+  "Globals": {
+    "sitename": "TheBoilerplate",
+    "sitedescription": "This is the default description for the site",
+    "posts": "Posts",
+    "pages": "Pages",
+    "language": "Language",
+    "homepage": "Homepage",
+    "categories": "Categories",
+    "category": "Category",
+    "tags": "Tags",
+    "tag": "Tag",
+    "posted": "Post date",
+    "filenotfoundtitle": "Page not found",
+    "filenotfoundtext": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "errortitle": "Something went wrong!",
+    "errortext": "We've unfortunately encountered an error. You can try to reload the page you were visiting.",
+    "localeLable": "Change language",
+    "localeLocale": "{locale, select, tr {Türkçe} en {English} other {Unknown}}",
+    "button": "Button",
+    "wait": "Please wait"
+  },
+  "Navigation": {
+    "home": "Home",
+    "pages": "Pages",
+    "posts": "Posts"
+  }
+}
