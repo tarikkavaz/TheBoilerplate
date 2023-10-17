@@ -27,8 +27,6 @@ services:
     env_file:
       - frontend/.env
     build: ./frontend
-    RUN yarn 
-    RUN yarn build
     ports:
       - "3000:3000"
     depends_on:
