@@ -100,4 +100,4 @@ For detailed deployment steps, please refer to the comments in the `deploy.sh` s
 
 ## Freauently Used Commands 
 
-Check out this file: [README-Commands.md](README-Commands.md)
+Check out this [file](README-Commands.md) for frequently used commands.
