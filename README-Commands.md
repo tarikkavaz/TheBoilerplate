@@ -18,6 +18,9 @@ docker-compose up --build
 Stop the Development Server with Control-C.
 
 # Server Buil Setup
+
+Go to the folder where the docker-compose.prod.yml file is located and run the following command:
+
 ```bash
 docker-compose down &&
 git pull &&
