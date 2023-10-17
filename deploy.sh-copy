@@ -7,9 +7,6 @@ ssh -T xxxxxx << 'ENDSSH_DUMP'
   cd yyyyyy
   docker-compose down
   git pull
-  docker system prune -a -f
   docker-compose -f docker-compose.prod.yml up --build -d
   docker-compose exec -T backend python manage.py migrate
-  docker-compose exec -T backend python manage.py loaddata datadump.json
-  docker-compose exec -T backend python manage.py collectstatic
 ENDSSH_DEPLOY
