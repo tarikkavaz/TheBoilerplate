@@ -1,4 +1,4 @@
-# Setup
+# Local Setup
 ```bash
 git clone https://github.com/tarikkavaz/TheBoilerplate.git &&
 cd TheBoilerplate &&
@@ -11,12 +11,13 @@ docker-compose exec backend python manage.py loaddata datadump.json &&
 docker-compose down
 ```
 
-# Development Setup
+# Local Development Setup
 ```bash
 docker-compose up --build
 ```
+Stop the Development Server with Control-C.
 
-# Deployment Setup
+# Server Buil Setup
 ```bash
 docker-compose down &&
 git pull &&
