@@ -2,7 +2,6 @@ FROM node:18
 WORKDIR /frontend
 COPY package.json yarn.lock /frontend/
 RUN CI=true
-RUN yarn
 COPY . /frontend/
 RUN yarn 
 RUN yarn build

@@ -44,6 +44,11 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     ```bash
     docker-compose exec backend python manage.py createsuperuser
     ```
+
+7. **Stop the Docker**
+    ```bash
+    docker-compose down
+    ```
 ---
 
 ## Development Setup
