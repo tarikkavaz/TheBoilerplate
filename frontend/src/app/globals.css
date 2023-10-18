@@ -42,6 +42,13 @@ h4 {
   @apply text-gray-500 underline hover:text-indigo-800;
 }
 
+/* Slider */
+.swiper {
+  --swiper-theme-color: #990000;
+  --swiper-pagination-bullet-active-color: #fff;
+  --swiper-pagination-bullet-inactive-color: #fff;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

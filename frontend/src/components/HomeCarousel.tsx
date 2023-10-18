@@ -5,15 +5,14 @@ import Image from "next/image";
 // Import Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import "swiper/css/bundle";
 // import Swiper required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 export default function App({ homepage }: any) {
   return (
     <Swiper
+      loop={true}
       centeredSlides={true}
       autoplay={{
         delay: 5500,
