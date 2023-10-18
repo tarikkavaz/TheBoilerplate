@@ -44,10 +44,39 @@ h4 {
 
 /* Slider */
 .swiper {
-  --swiper-theme-color: #990000;
+  --swiper-theme-color: #fff;
   --swiper-pagination-bullet-active-color: #fff;
   --swiper-pagination-bullet-inactive-color: #fff;
 }
+
+/* Navigation font start */
+.swiper-button-prev,
+.swiper-button-next {
+  &:after {
+    font-family: swiper-icons;
+    font-size: var(--swiper-navigation-size);
+    text-transform: none !important;
+    letter-spacing: 0;
+    font-variant: initial;
+    line-height: 1;
+  }
+}
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  &:after {
+    content: 'prev';
+  }
+}
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  &:after {
+    content: 'next';
+  }
+  right: var(--swiper-navigation-sides-offset, 10px);
+  left: auto;
+}
+/* Navigation font end */
+
 
 @layer base {
   :root {
