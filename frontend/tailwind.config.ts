@@ -81,9 +81,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"), 
-    require('postcss-import'),
-    require('tailwindcss/nesting'),
-],
+  plugins: [require("tailwindcss-animate"),],
 }
