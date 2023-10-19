@@ -85,19 +85,22 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
 
 ### Steps
 
-1. **Copy and Make Deployment Script Executable**
+Ensure that the values `SERVER_PATH` and `SSH_ALIAS` are correctly set in the `frontend/.env` file. Then, follow these steps to deploy your application:
+
+1. **Make Deployment Script Executable**
+    Make the `deploy.sh` script executable by running the following command:
     ```bash
-    cp deploy.sh-copy deploy.sh
     chmod +x deploy.sh
     ```
 
 2. **Run Deployment Script**
+    Execute the deployment script to deploy your application:
     ```bash
     ./deploy.sh
     ```
 
-For detailed deployment steps, please refer to the comments in the `deploy.sh` script.
+For detailed deployment steps and explanations, please refer to the comments in the `deploy.sh` script.
 
-## Freauently Used Commands 
+## Frequently Used Commands 
 
 Check out this [file](README-Commands.md) for frequently used commands.

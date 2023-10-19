@@ -1,9 +1,13 @@
 #!/bin/bash
-
-# Load the .env file
 source frontend/.env
 
-# Use the values from .env
+ssh -T $SSH_ALIAS << ENDSSH_DUMP
+  cd $SERVER_PATH
+  docker-compose exec backend python manage.py dumpdata > datadump.json
+ENDSSH_DUMP
+
+scp $SSH_ALIAS:$SERVER_PATH/datadump.json backend/datadump.json
+
 ssh -T $SSH_ALIAS << ENDSSH_DEPLOY
   cd $SERVER_PATH
   docker-compose down
