@@ -4,9 +4,11 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslator } from "next-intl/server";
 import { Layout } from "@/utils/types";
-import Header from "@/components/Header"; 
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
+
+import { ThemeProvider } from "@/components/theme-provider";
 
 const locales = ["en", "tr"];
 
@@ -18,10 +20,10 @@ export async function getMetadata(locale: string): Promise<Metadata> {
   const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_LOCAL!),
     alternates: {
-      canonical: '/',
+      canonical: "/",
       languages: {
-        'en-US': '/en',
-        'tr-TR': '/tr',
+        "en-US": "/en",
+        "tr-TR": "/tr",
       },
     },
     title: {
@@ -30,7 +32,7 @@ export async function getMetadata(locale: string): Promise<Metadata> {
     },
     openGraph: {
       url: process.env.NEXT_PUBLIC_LOCAL!,
-      images: '/og-image.jpg',
+      images: "/og-image.jpg",
       title: {
         template: `%s | ${t("sitename")}`,
         default: t("sitename"),
@@ -41,8 +43,6 @@ export async function getMetadata(locale: string): Promise<Metadata> {
 
   return metadata;
 }
-
-
 
 async function getMessages(locale: string) {
   try {
@@ -61,19 +61,29 @@ export default async function LocaleLayout({
   const isValidLocale = locales.some((cur) => cur === locale);
   if (!isValidLocale) notFound();
   return (
-    <html lang={locale}>
-      <body
-        className={clsx(
-          inter.className,
-          "flex h-screen flex-col justify-between"
-        )}
-      >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <>
+      <html lang={locale} suppressHydrationWarning>
+        <head />
+        <body
+          className={clsx(
+            inter.className,
+            "flex h-screen flex-col justify-between"
+          )}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
   );
 }
