@@ -109,9 +109,12 @@ export default function Footer() {
   const year = date.getFullYear();
   const { setTheme } = useTheme();
   return (
-    <footer className="bg-zinc-950 relative" aria-labelledby="footer-heading">
-      <div className="animate-bg-light w-1/2 max-w-5xl h-full top-0 absolute z-10 left-0 bg-left"></div>
-      <div className="animate-bg-light w-1/2 max-w-5xl h-full top-0 absolute z-10 right-0 bg-right"></div>
+    <footer
+      className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative"
+      aria-labelledby="footer-heading"
+    >
+      <div className="animate-bg-light w-1/2 max-w-5xl h-full top-0 absolute z-10 left-0 opacity-5 bg-left"></div>
+      <div className="animate-bg-light w-1/2 max-w-5xl h-full top-0 absolute z-10 right-0 opacity-50 bg-right"></div>
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
@@ -139,11 +142,11 @@ export default function Footer() {
       </Container>
       <Container size="default" className="pb-16 pt-16 relative z-20">
         {/* <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32"> */}
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+        <div className="xl:grid xl:grid-cols-3 xl:gap-8 ">
           <div className="space-y-8">
-            <p className="text-white text-3xl font-medium ">TheBoilerplate</p>
+            <p className=" text-3xl font-medium ">TheBoilerplate</p>
 
-            <p className="text-sm leading-6 text-gray-300">
+            <p className="text-sm leading-6">
               Making the world a better place through constructing elegant
               hierarchies.
             </p>
@@ -152,7 +155,7 @@ export default function Footer() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-500 hover:text-gray-400"
+                  className=" hover:text-gray-400"
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
@@ -163,16 +166,13 @@ export default function Footer() {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">
+                <h3 className="text-sm font-semibold leading-6 text-inherit">
                   Solutions
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.solutions.map((item) => (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                      >
+                      <a href={item.href} className="text-sm leading-6">
                         {item.name}
                       </a>
                     </li>
@@ -180,16 +180,13 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">
+                <h3 className="text-sm font-semibold leading-6 text-inherit">
                   Support
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.support.map((item) => (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                      >
+                      <a href={item.href} className="text-sm leading-6">
                         {item.name}
                       </a>
                     </li>
@@ -199,16 +196,13 @@ export default function Footer() {
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">
+                <h3 className="text-sm font-semibold leading-6 text-inherit">
                   Company
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.company.map((item) => (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                      >
+                      <a href={item.href} className="text-sm leading-6">
                         {item.name}
                       </a>
                     </li>
@@ -216,16 +210,13 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">
+                <h3 className="text-sm font-semibold leading-6 text-inherit">
                   Legal
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.legal.map((item) => (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                      >
+                      <a href={item.href} className="text-sm leading-6">
                         {item.name}
                       </a>
                     </li>
@@ -236,7 +227,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-gray-400">
+          <p className="text-xs leading-5 ">
             &copy; {year} Your Company, Inc. All rights reserved.
           </p>
         </div>

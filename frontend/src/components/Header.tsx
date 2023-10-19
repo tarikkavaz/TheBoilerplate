@@ -14,7 +14,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 async function fetchNavigationData(locale: string) {
@@ -143,7 +143,7 @@ function LanguageDropdown() {
 }
 
 function MobileMenu({
-  navigationData: initialNavigationData
+  navigationData: initialNavigationData,
 }: MobileMenuProps) {
   const [navigationData, setNavigationData] = useState<NavItem[]>(
     initialNavigationData
@@ -182,7 +182,7 @@ function MobileMenu({
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
-  
+
                   {navigationData &&
                     navigationData.map((navItem) => (
                       <NavigationMenuItem key={navItem.title}>
@@ -268,12 +268,18 @@ export default function Header() {
                   <NavigationMenuItem key={navItem.title}>
                     {navItem.children && navItem.children.length > 0 ? (
                       <>
-                        <NavigationMenuTrigger>
+                        <NavigationMenuTrigger
+                          onPointerMove={(event) => event.preventDefault()}
+                          onPointerLeave={(event) => event.preventDefault()}
+                        >
                           {navItem.title}
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent>
+                        <NavigationMenuContent
+                          onPointerEnter={(event) => event.preventDefault()}
+                          onPointerLeave={(event) => event.preventDefault()}
+                        >
                           {/* <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]"> */}
-                          <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                          <ul className="grid gap-3 p-6">
                             {navItem.children.map((child) => (
                               <ListItem
                                 key={child.title}

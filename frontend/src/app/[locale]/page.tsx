@@ -135,6 +135,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
       <Container>
         <HomeCarousel homepage={homepage} />
       </Container>
+      <div className="bg-red-700 dark:bg-lime-500">TEST_CSSVariables_TRUE</div>
     </>
   );
 }
