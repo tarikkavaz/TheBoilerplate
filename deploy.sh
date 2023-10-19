@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Step 1: Dump the current data from the server into a new datadump.json
-# Change name xxxxxx of the ssh connection to your own
-# Change folder name yyyyyy 
-ssh -T xxxxxx << 'ENDSSH_DEPLOY'
-  cd yyyyyy
+# Load the .env file
+source frontend/.env
+
+# Use the values from .env
+ssh -T $SSH_ALIAS << ENDSSH_DEPLOY
+  cd $SERVER_PATH
   docker-compose down
   git pull
   docker system prune -a -f

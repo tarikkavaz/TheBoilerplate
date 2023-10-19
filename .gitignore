@@ -156,6 +156,3 @@ ENV/
 
 # db
 *.sqlite3
-
-# Deploy script
-deploy.sh
