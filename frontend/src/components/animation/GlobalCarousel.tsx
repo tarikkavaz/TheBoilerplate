@@ -3,11 +3,8 @@
 import { FC } from 'react';
 import { ContentImage } from "@/utils/types";
 import Image from "next/image";
-// Import Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css/bundle";
-// import Swiper required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import {GlobalCarouselProps} from "@/utils/types";
 
