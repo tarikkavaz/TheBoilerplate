@@ -1,10 +1,15 @@
 #!/bin/bash
+source frontend/.env
 
-# Step 1: Dump the current data from the server into a new datadump.json
-# Change name xxxxxx of the ssh connection to your own
-# Change folder name yyyyyy 
-ssh -T xxxxxx << 'ENDSSH_DEPLOY'
-  cd yyyyyy
+ssh -T $SSH_ALIAS << ENDSSH_DUMP
+  cd $SERVER_PATH
+  docker-compose exec backend python manage.py dumpdata > datadump.json
+ENDSSH_DUMP
+
+scp $SSH_ALIAS:$SERVER_PATH/datadump.json backend/datadump.json
+
+ssh -T $SSH_ALIAS << ENDSSH_DEPLOY
+  cd $SERVER_PATH
   docker-compose down
   git pull
   docker system prune -a -f
