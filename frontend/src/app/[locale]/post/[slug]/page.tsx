@@ -8,6 +8,7 @@ import { formatDate } from "@/utils/date";
 import { getTranslator } from "next-intl/server";
 import { Metadata, ResolvingMetadata } from "next";
 import { DEFAULT_OG_IMAGE_URL } from "@/lib/config";
+import { GlobalCarousel } from "@/components/animation/GlobalCarousel";
 
 export async function generateMetadata(
   { params }: MetadataProps,
@@ -72,6 +73,14 @@ export default async function Page({
 
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
 
+        <div className="mt-8">
+        <GlobalCarousel 
+          images={post.images || []} 
+          navigationEnabled={false} 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-slate-100" 
+        />
+        </div>
+        
         <div className="grid grid-cols-4 gap-4 mt-8">
           {post.images &&
             post.images.map((img: ContentImage) => (

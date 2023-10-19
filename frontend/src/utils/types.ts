@@ -118,3 +118,13 @@ export interface Post {
   date_posted: string;
   lang: string;
 }
+
+export interface GlobalCarouselProps {
+  images?: ContentImage[];
+  autoplayDelay?: number;
+  loop?: boolean;
+  centeredSlides?: boolean;
+  paginationClickable?: boolean;
+  navigationEnabled?: boolean;
+  className?: string;
+}

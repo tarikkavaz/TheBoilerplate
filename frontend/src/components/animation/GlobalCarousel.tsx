@@ -1,5 +1,6 @@
 "use client";
 
+import { FC } from 'react';
 import { ContentImage } from "@/utils/types";
 import Image from "next/image";
 // Import Swiper
@@ -8,27 +9,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 // import Swiper required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import {GlobalCarouselProps} from "@/utils/types";
 
-export default function App({ homepage }: any) {
+export const GlobalCarousel: FC<GlobalCarouselProps> = ({
+  images,
+  autoplayDelay = 5500,
+  loop = true,
+  centeredSlides = true,
+  paginationClickable = true,
+  navigationEnabled = true,
+  className = "h-[300px] md:h-[400px] lg:h-[550px] bg-slate-300"
+}) => {
   return (
     <Swiper
-      loop={true}
-      centeredSlides={true}
+      loop={loop}
+      centeredSlides={centeredSlides}
       autoplay={{
-        delay: 5500,
+        delay: autoplayDelay,
         disableOnInteraction: false,
       }}
       pagination={{
-        clickable: true,
+        clickable: paginationClickable,
       }}
-      navigation={true}
+      navigation={navigationEnabled}
       modules={[Autoplay, Pagination, Navigation]}
-      className="h-[300px] md:h-[400px] lg:h-[550px] bg-slate-300"
-      // onSwiper={(swiper) => console.log(swiper)}
-      // onSlideChange={() => console.log("slide change")}
+      className={className}
     >
-      {homepage.images &&
-        homepage.images.map((image: ContentImage) => (
+      {images &&
+        images.map((image: ContentImage) => (
           <SwiperSlide key={image.id}>
             <picture className="block relative w-full h-full">
               <Image
@@ -43,4 +51,4 @@ export default function App({ homepage }: any) {
         ))}
     </Swiper>
   );
-}
+};

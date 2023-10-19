@@ -5,7 +5,7 @@ import {
   ContentImage,
 } from "@/utils/types";
 import Container from "@/components/ui/Container";
-import HomeCarousel from "@/components/HomeCarousel";
+import { GlobalCarousel } from "@/components/animation/GlobalCarousel";
 import Link from "next/link";
 import Image from "next/image";
 import { fetchData, API_URL, SERVER_IP } from "@/utils/api";
@@ -59,7 +59,10 @@ export default async function Posts({ params: { locale } }: HomeProps) {
   return (
     <>
       <Container size="fluid">
-        <HomeCarousel homepage={homepage} />
+      <GlobalCarousel 
+          images={homepage.images || []} 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-slate-100" 
+        />
       </Container>
       <Container className="p-10 mt-16" id="content">
         <div className="grid grid-cols-3 gap-4 mt-8">
@@ -133,9 +136,11 @@ export default async function Posts({ params: { locale } }: HomeProps) {
         </div>
       </Container>
       <Container>
-        <HomeCarousel homepage={homepage} />
+      <GlobalCarousel 
+          images={homepage.images || []} 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-slate-100" 
+        />
       </Container>
-      <div className="bg-red-700 dark:bg-lime-500">TEST_CSSVariables_TRUE</div>
     </>
   );
 }
