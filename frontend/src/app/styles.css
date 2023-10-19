@@ -1,0 +1,42 @@
+/*
+.home-header-logo-light-left,
+.home-header-logo-light-right {
+  width: 50vw;
+  max-width: 1000px;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  z-index: 1;
+  animation: homeHeaderLight 10s infinite;
+}
+*/
+
+.bg-left {
+  left: 0;
+  background-image: radial-gradient(
+    farthest-side at left center,
+    #0a2f94,
+    rgba(10, 47, 148, 0)
+  );
+}
+
+.bg-right {
+  right: 0;
+  background-image: radial-gradient(
+    farthest-side at right center,
+    #7a079a,
+    rgba(122, 7, 154, 0)
+  );
+}
+
+@keyframes bg-light {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
