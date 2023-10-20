@@ -1,14 +1,44 @@
 "use client";
 
-import { ChangeEvent, useTransition, useState, useEffect } from "react";
-import clsx from "clsx";
+import * as React from "react";
+import { Fragment, useState, useEffect } from "react";
+import { fetchData, SERVER_IP } from "@/utils/api";
+import { Moon, Sun, Globe } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "next-intl/client";
-import { fetchData } from "@/utils/api"; // Import fetchData function
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+/* fetchNavigationData */
+async function fetchNavigationData(locale: string) {
+  try {
+    const endpoint = `/api/menuitems/`;
+    const response = await fetchData(SERVER_IP, endpoint);
+    const filteredData = response.filter((item: any) => item.lang === locale);
+    return { navigations: filteredData };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+/* end fetchNavigationData */
 
 export default function LocaleSwitcher() {
   const t = useTranslations("Globals");
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -20,11 +50,9 @@ export default function LocaleSwitcher() {
     const pathParts = pathname.split("/");
     const slug = pathParts.filter((part) => part !== "").pop() || "";
     setSlug(slug);
-    // console.log("slug>>>:", slug);
 
     async function fetchDataFromApi() {
       const nextLocale = locale;
-      // let type = "";
       if (pathname.includes("/page/") || pathname.includes("/sayfa/")) {
         type = "page";
         setType(type);
@@ -40,69 +68,86 @@ export default function LocaleSwitcher() {
         const endpoint = `/api/${nextLocale}/${type}/${slug}`;
 
         try {
-          const data = await fetchData(endpoint);
+          const data = await fetchData(SERVER_IP, endpoint);
           const langSlug = data.langslug;
           setLangSlug(langSlug);
         } catch (error) {
-          console.error("Error:", error);
+          console.error("Error!:", error);
         }
       }
     }
 
-    fetchDataFromApi(); // Call the fetchDataFromApi function
+    fetchDataFromApi();
   }, [pathname]);
 
-  function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
-    const nextLocale = event.target.value;
-    console.log("langSlug:", langSlug);
-    startTransition(() => {
-      if (slug) {
-        if (pathname.includes("/page/") && langSlug) {
-          router.replace(`/sayfa/${langSlug}`, { locale: nextLocale });
-        } else if (pathname.includes("/sayfa/") && langSlug) {
-          router.replace(`/page/${langSlug}`, { locale: nextLocale });
-        } else if (pathname.includes("/post/") && langSlug) {
-          router.replace(`/yazi/${langSlug}`, { locale: nextLocale });
-        } else if (pathname.includes("/yazi/") && langSlug) {
-          router.replace(`/post/${langSlug}`, { locale: nextLocale });
-        } else if (
-          !langSlug &&
-          (type === "page" ||
-            type === "sayfa" ||
-            type === "post" ||
-            type === "yazi")
-        ) {
-          router.replace("/", { locale: nextLocale });
-        } else {
-          router.replace(pathname, { locale: nextLocale });
-        }
-      } else {
+  const handleLocaleChange = async (nextLocale: string) => {
+    setIsPending(true);
+    if (slug) {
+      if (pathname.includes("/page/") && langSlug) {
+        router.replace(`/sayfa/${langSlug}`, { locale: nextLocale });
+      } else if (pathname.includes("/sayfa/") && langSlug) {
+        router.replace(`/page/${langSlug}`, { locale: nextLocale });
+      } else if (pathname.includes("/post/") && langSlug) {
+        router.replace(`/yazi/${langSlug}`, { locale: nextLocale });
+      } else if (pathname.includes("/yazi/") && langSlug) {
+        router.replace(`/post/${langSlug}`, { locale: nextLocale });
+      } else if (
+        !langSlug &&
+        (type === "page" ||
+          type === "sayfa" ||
+          type === "post" ||
+          type === "yazi")
+      ) {
         router.replace("/", { locale: nextLocale });
+      } else {
+        router.replace(pathname, { locale: nextLocale });
+      }
+    } else {
+      router.replace("/", { locale: nextLocale });
+    }
+    setIsPending(false);
+    fetchNavigationData(nextLocale).then((data) => {
+      if (data) {
+        fetchNavigationData(data.navigations);
       }
     });
-  }
+  };
 
   return (
-    <label
-      className={clsx(
-        "relative text-gray-400",
-        isPending && "transition-opacity [&:disabled]:opacity-30"
-      )}
-    >
-      <p className="sr-only">{t("localeLable")}</p>
-      <select
-        className="inline-flex py-3 pl-2 pr-6 bg-transparent appearance-none"
-        defaultValue={locale}
-        disabled={isPending}
-        onChange={onSelectChange}
-      >
-        {["en", "tr"].map((cur) => (
-          <option key={cur} value={cur}>
-            {t("localeLocale", { locale: cur })}
-          </option>
-        ))}
-      </select>
-      <span className="pointer-events-none absolute top-[8px] right-2">⌄</span>
-    </label>
+    <>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>{t("language")}</NavigationMenuTrigger>
+            <NavigationMenuContent className="">
+              <ul className="grid gap-3 p-6 md:w-[120px]">
+                {["en", "tr"].map((cur) => (
+                  <li key={cur}>
+                    <NavigationMenuLink
+                      onClick={() => handleLocaleChange(cur)}
+                      className="block text-sm p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none cursor-pointer select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      {t("localeLocale", { locale: cur })}
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all " />
+            <span className="sr-only">Toggle Language</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem>Türkçe</DropdownMenuItem>
+          <DropdownMenuItem>English</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 }

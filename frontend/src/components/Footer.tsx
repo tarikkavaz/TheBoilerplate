@@ -1,18 +1,6 @@
 "use client";
-
-import * as React from "react";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-//
 import Container from "@/components/ui/Container";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const navigation = {
   solutions: [
@@ -107,7 +95,6 @@ const navigation = {
 export default function Footer() {
   const date = new Date();
   const year = date.getFullYear();
-  const { setTheme } = useTheme();
   return (
     <footer
       className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative"
@@ -119,26 +106,7 @@ export default function Footer() {
         Footer
       </h2>
       <Container className="relative z-20">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon">
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")}>
-              Light
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
-              Dark
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>
-              System
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ThemeSwitcher />
       </Container>
       <Container size="default" className="pb-16 pt-16 relative z-20">
         {/* <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32"> */}
