@@ -33,7 +33,7 @@ export default function Navigation({ links }: NavbarProps) {
     <>
       {/* desktop menu */}
       <nav
-        className={`top-9 z-20 mx-auto flex items-center justify-between gap-48 rounded-lg transition-all duration-75 ease-in lg:px-4 ${
+        className={`mx-auto top-9 z-20 flex items-center justify-between gap-48 transition-all duration-75 ease-in ${
           isScrolled
             ? "scrolled border  p-2"
             : "border border-transparent p-4] "

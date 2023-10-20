@@ -28,11 +28,13 @@ async function fetchNavigationData(locale: string) {
 function Logo() {
   const locale = useLocale();
   return (
-    <div className="block p-3 space-y-1 leading-none no-underline rounded-md outline-none select-none">
-      <Link href={`/${locale}`} legacyBehavior passHref>
-        <div className="text-3xl">Logo</div>
-      </Link>
-    </div>
+    <>
+      <div className="block p-3 space-y-1 leading-none no-underline rounded-md outline-none select-none">
+        <Link href={`/${locale}`} legacyBehavior passHref>
+          <div className="text-3xl">Logo</div>
+        </Link>
+      </div>
+    </>
   );
 }
 /* end Logo */
@@ -54,12 +56,20 @@ export default function Header() {
     <>
       <Container
         size="fluid"
-        className="bg-slate-200 dark:bg-zinc-950 text-black dark:text-white flex"
+        className="bg-slate-200 dark:bg-zinc-950 text-black dark:text-white w-full h-50 fixed z-50 flex items-center justify-between"
       >
-        <Logo />
-        <Navigation links={navigationData || []} />
-        <ThemeSwitcher />
-        <LocaleSwitcher />
+        <div>
+          <Logo />
+        </div>
+        <div>
+          <Navigation links={navigationData || []} />
+        </div>
+        <div>
+          <ThemeSwitcher />
+        </div>
+        <div>
+          <LocaleSwitcher />
+        </div>
       </Container>
     </>
   );
