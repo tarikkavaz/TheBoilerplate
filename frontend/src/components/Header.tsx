@@ -64,10 +64,8 @@ export default function Header() {
         <div>
           <Navigation links={navigationData || []} />
         </div>
-        <div>
+        <div className="flex gap-2">
           <ThemeSwitcher />
-        </div>
-        <div>
           <LocaleSwitcher />
         </div>
       </Container>

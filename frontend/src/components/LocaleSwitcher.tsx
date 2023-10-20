@@ -115,7 +115,7 @@ export default function LocaleSwitcher() {
 
   return (
     <>
-      <NavigationMenu>
+      {/* <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>{t("language")}</NavigationMenuTrigger>
@@ -135,7 +135,7 @@ export default function LocaleSwitcher() {
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
-      </NavigationMenu>
+      </NavigationMenu> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
@@ -144,8 +144,16 @@ export default function LocaleSwitcher() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>Türkçe</DropdownMenuItem>
-          <DropdownMenuItem>English</DropdownMenuItem>
+          {["en", "tr"].map((cur) => (
+            <span key={cur}>
+              <DropdownMenuItem
+                onClick={() => handleLocaleChange(cur)}
+                className="block text-sm p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none cursor-pointer select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+              >
+                {t("localeLocale", { locale: cur })}
+              </DropdownMenuItem>
+            </span>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

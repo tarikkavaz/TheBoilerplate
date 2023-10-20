@@ -1,6 +1,7 @@
 "use client";
 import Container from "@/components/ui/Container";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 const navigation = {
   solutions: [
@@ -105,9 +106,7 @@ export default function Footer() {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <Container className="relative z-20">
-        <ThemeSwitcher />
-      </Container>
+
       <Container size="default" className="pb-16 pt-16 relative z-20">
         {/* <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32"> */}
         <div className="xl:grid xl:grid-cols-3 xl:gap-8 ">
@@ -194,6 +193,12 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        <Container>
+          <div className="flex gap-2">
+            <ThemeSwitcher />
+            <LocaleSwitcher />
+          </div>
+        </Container>
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
           <p className="text-xs leading-5 ">
             &copy; {year} Your Company, Inc. All rights reserved.
