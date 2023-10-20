@@ -16,7 +16,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-
+import NavBar from "@/components/Navigation";
 async function fetchNavigationData(locale: string) {
   try {
     const endpoint = `/api/menuitems/`;
@@ -235,6 +235,7 @@ export default function Header() {
   const [navigationData, setNavigationData] = useState<MenuItem[] | null>(null);
   const locale = useLocale();
   const t = useTranslations("Globals");
+  // console.log("navigationData: ", navigationData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -247,74 +248,81 @@ export default function Header() {
   }, [locale]);
 
   return (
-    <Container size="fluid">
-      <div className="hidden md:flex items-center justify-between">
-        <div>
-          <Logo />
-        </div>
-        <div className="">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link href={`/${locale}`} legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    {t("homepage")}
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+    <>
+      <Container size="fluid" className="bg-indigo-900">
+        <NavBar links={navigationData || []} />
+      </Container>
+      <Container size="fluid">
+        <div className="hidden md:flex items-center justify-between">
+          <div>
+            <Logo />
+          </div>
+          <div className="">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link href={`/${locale}`} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      {t("homepage")}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
 
-              {navigationData &&
-                navigationData.map((navItem) => (
-                  <NavigationMenuItem key={navItem.title}>
-                    {navItem.children && navItem.children.length > 0 ? (
-                      <>
-                        <NavigationMenuTrigger
-                          onPointerMove={(event) => event.preventDefault()}
-                          onPointerLeave={(event) => event.preventDefault()}
-                        >
-                          {navItem.title}
-                        </NavigationMenuTrigger>
-                        <NavigationMenuContent
-                          onPointerEnter={(event) => event.preventDefault()}
-                          onPointerLeave={(event) => event.preventDefault()}
-                        >
-                          {/* <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]"> */}
-                          <ul className="grid gap-3 p-6">
-                            {navItem.children.map((child) => (
-                              <ListItem
-                                key={child.title}
-                                title={child.title}
-                                href={child.link}
-                                newtab={child.newtab}
-                              >
-                                {child.description}
-                              </ListItem>
-                            ))}
-                          </ul>
-                        </NavigationMenuContent>
-                      </>
-                    ) : (
-                      <Link href={navItem.link} legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          {navItem.title}
-                        </NavigationMenuLink>
-                      </Link>
-                    )}
-                  </NavigationMenuItem>
-                ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+                {navigationData &&
+                  navigationData.map((navItem) => (
+                    <NavigationMenuItem key={navItem.title}>
+                      {navItem.children && navItem.children.length > 0 ? (
+                        <>
+                          <NavigationMenuTrigger
+                            onPointerMove={(event) => event.preventDefault()}
+                            onPointerLeave={(event) => event.preventDefault()}
+                          >
+                            {navItem.title}
+                          </NavigationMenuTrigger>
+                          <NavigationMenuContent
+                            onPointerEnter={(event) => event.preventDefault()}
+                            onPointerLeave={(event) => event.preventDefault()}
+                          >
+                            {/* <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]"> */}
+                            <ul className="grid gap-3 p-6">
+                              {navItem.children.map((child) => (
+                                <ListItem
+                                  key={child.title}
+                                  title={child.title}
+                                  href={child.link}
+                                  newtab={child.newtab}
+                                >
+                                  {child.description}
+                                </ListItem>
+                              ))}
+                            </ul>
+                          </NavigationMenuContent>
+                        </>
+                      ) : (
+                        <Link href={navItem.link} legacyBehavior passHref>
+                          <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                          >
+                            {navItem.title}
+                          </NavigationMenuLink>
+                        </Link>
+                      )}
+                    </NavigationMenuItem>
+                  ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+
+          <div>
+            <LanguageDropdown />
+          </div>
         </div>
 
-        <div>
-          <LanguageDropdown />
-        </div>
-      </div>
-
-      <MobileMenu navigationData={[]} />
-    </Container>
+        <MobileMenu navigationData={[]} />
+      </Container>
+    </>
   );
 }
 
