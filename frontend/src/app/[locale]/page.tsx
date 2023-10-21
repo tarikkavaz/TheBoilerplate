@@ -82,21 +82,21 @@ export default async function Posts({ params: { locale } }: HomeProps) {
         </div>
         <h1>{homepage.title}</h1>
         {/* <div className="flex flex-wrap gap-4 p-4 my-16 rounded bg-slate-300"> */}
-        <div className="flex-wrap hidden gap-4 p-4 my-16 rounded bg-slate-300">
-          <Button className="">{t("button")}</Button>
-          <Button className="" variant="secondary">
+        <div className="flex-wrap gap-4 p-4 my-16 rounded bg-slate-300">
+          <Button>{t("button")}</Button>
+          <Button variant="secondary">
             {t("button")}
           </Button>
-          <Button className="" variant="destructive">
+          <Button variant="destructive">
             {t("button")}
           </Button>
-          <Button className="" variant="outline">
+          <Button variant="outline">
             {t("button")}
           </Button>
-          <Button className="" variant="ghost">
+          <Button variant="ghost">
             {t("button")}
           </Button>
-          <Button className="" variant="link">
+          <Button variant="link">
             {t("button")}
           </Button>
           <Button>
