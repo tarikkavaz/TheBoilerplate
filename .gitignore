@@ -158,4 +158,4 @@ ENV/
 *.sqlite3
 
 # nginx
-/nginx.conf
+nginx.conf
