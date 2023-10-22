@@ -85,22 +85,29 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
 
 ### Steps
 
-Ensure that the values `SERVER_PATH` and `SSH_ALIAS` are correctly set in the `frontend/.env` file. Then, follow these steps to deploy your application:
-
-1. **Make Deployment Script Executable**
-    Make the `deploy.sh` script executable by running the following command:
+1. **Clone the Repository**
     ```bash
-    chmod +x deploy.sh
+    git clone https://github.com/tarikkavaz/TheBoilerplate.git YOURDOMAINNAME
+    cd YOURDOMAINNAME
     ```
 
-2. **Run Deployment Script**
-    Execute the deployment script to deploy your application:
+2. **Setup Frontend Environment Variables**
     ```bash
-    ./deploy.sh
+    cp frontend/.env-sample frontend/.env
     ```
+    Ensure that the values `SERVER_PATH` and `SSH_ALIAS` are correctly set.
 
-For detailed deployment steps and explanations, please refer to the comments in the `deploy.sh` script.
+2. **Setup Nginx file**
+    ```bash
+    cp nginx.conf-sample nginx.conf
+    ```
+    Ensure that the values `YOURDOMAINNAME` are correctly set.
 
-## Frequently Used Commands 
-
-Check out this [file](README-Commands.md) for frequently used commands.
+3. **Run the Docker**
+   
+    ```bash
+    docker-compose -f docker-compose.prod.yml up --build -d &&
+    docker-compose exec backend python manage.py migrate &&
+    docker-compose exec backend python manage.py loaddata datadump.json &&
+    docker-compose exec backend python manage.py collectstatic
+    ```
