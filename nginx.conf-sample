@@ -10,6 +10,7 @@ server {
     add_header Feature-Policy "microphone 'none';camera 'none';";
     add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
     add_header X-Content-Type-Options nosniff;
+    add_header X-Debug-Message $request_uri always;
 
     location / {
         proxy_pass http://frontend:3000;
