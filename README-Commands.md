@@ -22,7 +22,7 @@ Stop the Development Server with Control-C.
 Go to the folder where the docker-compose.prod.yml file is located and run the following command:
 
 ```bash
-docker-compose down &&
+docker-compose down --remove-orphans &&
 git pull &&
 docker system prune -a -f &&
 docker-compose -f docker-compose.prod.yml up --build -d &&
