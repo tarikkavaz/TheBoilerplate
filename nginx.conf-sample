@@ -4,6 +4,13 @@ server {
 
     server_name YOURDOMAINNAME.com www.YOURDOMAINNAME.com;
 
+    add_header X-Frame-X-XSS-Protection 1;
+    add_header X-Xss-Protection "1; mode=block" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade";
+    add_header Feature-Policy "microphone 'none';camera 'none';";
+    add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+    add_header X-Content-Type-Options nosniff;
+
     location / {
         proxy_pass http://frontend:3000;
         proxy_set_header Host $host;
