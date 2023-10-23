@@ -9,7 +9,6 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function Navigation({ links }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   useEffect(() => {
@@ -36,30 +35,11 @@ export default function Navigation({ links }: NavbarProps) {
     }
   }, [isPopoverOpen]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (scrollY > 300) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <>
       {/* desktop menu */}
       <nav
-        className={`mx-auto top-9 z-20 flex items-center justify-between gap-48 transition-all duration-75 ease-in ${
-          isScrolled
-            ? "scrolled border  p-2"
-            : "border border-transparent p-4] "
-        }`}
+        className="mx-auto top-9 z-20 flex items-center justify-between gap-48 transition-all duration-75 ease-in"
         aria-label="Global"
       >
         <div className="flex lg:hidden">

@@ -101,8 +101,10 @@ export default function Footer() {
       className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative"
       aria-labelledby="footer-heading"
     >
-      <div className="animate-bg-light w-1/2 max-w-5xl h-full top-0 absolute z-10 left-0 opacity-5 bg-left"></div>
-      <div className="animate-bg-light w-1/2 max-w-5xl h-full top-0 absolute z-10 right-0 opacity-50 bg-right"></div>
+      <div className="overflow-hidden absolute z-10 w-full h-full">
+        <div className="animate-bg-light w-full h-[2000px] absolute top-0 left-0 opacity-5 bg-left"></div>
+        <div className="animate-bg-light w-full h-[2000px] absolute top-0 right-0 opacity-50 bg-right"></div>
+      </div>
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
