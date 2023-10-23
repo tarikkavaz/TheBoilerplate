@@ -83,15 +83,28 @@ export default function LocaleSwitcher() {
   const handleLocaleChange = async (nextLocale: string) => {
     setIsPending(true);
     if (slug) {
-      if (pathname.includes("/page/") && langSlug) {
+      if (pathname.includes("/page/") && langSlug && locale !== nextLocale) {
         router.replace(`/sayfa/${langSlug}`, { locale: nextLocale });
-      } else if (pathname.includes("/sayfa/") && langSlug) {
+      } else if (
+        pathname.includes("/sayfa/") &&
+        langSlug &&
+        locale !== nextLocale
+      ) {
         router.replace(`/page/${langSlug}`, { locale: nextLocale });
-      } else if (pathname.includes("/post/") && langSlug) {
+      } else if (
+        pathname.includes("/post/") &&
+        langSlug &&
+        locale !== nextLocale
+      ) {
         router.replace(`/yazi/${langSlug}`, { locale: nextLocale });
-      } else if (pathname.includes("/yazi/") && langSlug) {
+      } else if (
+        pathname.includes("/yazi/") &&
+        langSlug &&
+        locale !== nextLocale
+      ) {
         router.replace(`/post/${langSlug}`, { locale: nextLocale });
       } else if (
+        locale !== nextLocale &&
         !langSlug &&
         (type === "page" ||
           type === "sayfa" ||
@@ -115,27 +128,6 @@ export default function LocaleSwitcher() {
 
   return (
     <>
-      {/* <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>{t("language")}</NavigationMenuTrigger>
-            <NavigationMenuContent className="">
-              <ul className="grid gap-3 p-6 md:w-[120px]">
-                {["en", "tr"].map((cur) => (
-                  <li key={cur}>
-                    <NavigationMenuLink
-                      onClick={() => handleLocaleChange(cur)}
-                      className="block text-sm p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none cursor-pointer select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      {t("localeLocale", { locale: cur })}
-                    </NavigationMenuLink>
-                  </li>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
@@ -147,7 +139,11 @@ export default function LocaleSwitcher() {
           {["en", "tr"].map((cur) => (
             <span key={cur}>
               <DropdownMenuItem
-                onClick={() => handleLocaleChange(cur)}
+                onClick={() => {
+                  if (locale !== cur) {
+                    handleLocaleChange(cur);
+                  }
+                }}
                 className="block text-sm p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none cursor-pointer select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
               >
                 {t("localeLocale", { locale: cur })}
