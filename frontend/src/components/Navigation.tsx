@@ -1,16 +1,41 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Popover, Transition } from "@headlessui/react";
 import { NavbarProps } from "@/utils/types";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import Container from "@/components/ui/Container";
 
 export default function Navigation({ links }: NavbarProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  useEffect(() => {
+    const mainElement = document.querySelector("main");
+    const footerElement = document.querySelector("footer");
+
+    // select dropdowns
+    const dropdownMenus = document.querySelectorAll(
+      '[data-headlessui-state="open"]'
+    );
+    // "data-headlessui-state" controls
+    const isAnyDropdownOpen = Array.from(dropdownMenus).some(
+      (menu) => menu.getAttribute("data-headlessui-state") === "open"
+    );
+
+    if (mainElement && footerElement) {
+      if (isAnyDropdownOpen) {
+        mainElement.classList.add("pointer-events-none");
+        footerElement.classList.add("pointer-events-none");
+      } else {
+        mainElement.classList.remove("pointer-events-none");
+        footerElement.classList.remove("pointer-events-none");
+      }
+    }
+  }, [isPopoverOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -25,9 +50,6 @@ export default function Navigation({ links }: NavbarProps) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // const pathname = usePathname();
 
   return (
     <>
@@ -56,7 +78,10 @@ export default function Navigation({ links }: NavbarProps) {
               {({ open }) => (
                 <>
                   {menuItem.children ? (
-                    <Popover.Button className="bg-gray-0 inline-flex w-full justify-center  rounded-md bg-opacity-20 px-0 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2">
+                    <Popover.Button
+                      onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+                      className="bg-gray-0 inline-flex w-full justify-center  rounded-md bg-opacity-20 px-0 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2"
+                    >
                       {menuItem.title}
                       <ChevronDownIcon
                         className={
@@ -92,7 +117,7 @@ export default function Navigation({ links }: NavbarProps) {
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-indigo-900 ring-opacity-5">
                           <div className="relative grid grid-cols-1 gap-6 bg-indigo-900 px-5 py-6 sm:gap-8 sm:p-4">
                             {menuItem.children.map((submenuItem) => (
-                              <a
+                              <Link
                                 key={submenuItem.title}
                                 href={submenuItem.link}
                                 target={menuItem.newtab ? "_blank" : "_self"}
@@ -106,7 +131,7 @@ export default function Navigation({ links }: NavbarProps) {
                                     {submenuItem.title}
                                   </p>
                                 </div>
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         </div>
