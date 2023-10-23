@@ -72,10 +72,11 @@ export default function Header() {
   return (
     <>
       <Container
+        as="header"
         size="fluid"
         className={`bg-white/[.8] dark:bg-black/[.8] text-black dark:text-white w-full h-50 fixed z-50 flex items-center justify-between backdrop-blur-md backdrop-opacity-100 ${
           isScrolled
-            ? "scrolled border-b border-slate-100/[.3] "
+            ? "scrolled border-b border-slate-200/[.8] dark:border-zinc-950/[.8] "
             : "border-b-0 border-transparent"
         }`}
         // style={{ background: "var(--popover-foreground)" }}
