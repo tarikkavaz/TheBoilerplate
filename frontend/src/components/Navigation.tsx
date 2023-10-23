@@ -52,7 +52,7 @@ export default function Navigation({ links }: NavbarProps) {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <Popover.Group className="hidden items-center lg:flex lg:gap-x-8">
+        <Popover.Group className="hidden items-center lg:flex lg:gap-x-4">
           {links.map((menuItem) => (
             <Popover key={menuItem.title} className="relative">
               {({ open }) => (
@@ -60,7 +60,7 @@ export default function Navigation({ links }: NavbarProps) {
                   {menuItem.children ? (
                     <Popover.Button
                       onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-                      className="bg-gray-0 inline-flex w-full justify-center  rounded-md bg-opacity-20 px-0 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2"
+                      className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800"
                     >
                       {menuItem.title}
                       <ChevronDownIcon
@@ -77,7 +77,7 @@ export default function Navigation({ links }: NavbarProps) {
                       href={menuItem.link}
                       target={menuItem.newtab ? "_blank" : "_self"}
                       rel={menuItem.newtab ? "noopener noreferrer" : ""}
-                      className="text-sm font-semibold leading-6"
+                      className="text-sm font-semibold leading-6 rounded-md px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800"
                     >
                       {menuItem.title}
                     </Link>
