@@ -9,31 +9,6 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function Navigation({ links }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
-  useEffect(() => {
-    const mainElement = document.querySelector("main");
-    const footerElement = document.querySelector("footer");
-
-    // select dropdowns
-    const dropdownMenus = document.querySelectorAll(
-      '[data-headlessui-state="open"]'
-    );
-    // "data-headlessui-state" controls
-    const isAnyDropdownOpen = Array.from(dropdownMenus).some(
-      (menu) => menu.getAttribute("data-headlessui-state") === "open"
-    );
-
-    if (mainElement && footerElement) {
-      if (isAnyDropdownOpen) {
-        mainElement.classList.add("pointer-events-none");
-        footerElement.classList.add("pointer-events-none");
-      } else {
-        mainElement.classList.remove("pointer-events-none");
-        footerElement.classList.remove("pointer-events-none");
-      }
-    }
-  }, [isPopoverOpen]);
 
   return (
     <>
@@ -58,10 +33,7 @@ export default function Navigation({ links }: NavbarProps) {
               {({ open }) => (
                 <>
                   {menuItem.children ? (
-                    <Popover.Button
-                      onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-                      className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800"
-                    >
+                    <Popover.Button className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800">
                       {menuItem.title}
                       <ChevronDownIcon
                         className={
