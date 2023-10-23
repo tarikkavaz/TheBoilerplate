@@ -13,9 +13,9 @@ server {
     add_header X-Debug-Message $request_uri always;
 
     location /static/ {
-        alias /static/;
-        expires 30d;
-        add_header Cache-Control "public, max-age=2592000";
+        alias /home/deployer/sites/newtablab.com/static_root/;
+        access_log off;
+        add_header Cache-Control "max-age=604800, public";
     }
 
     location / {
