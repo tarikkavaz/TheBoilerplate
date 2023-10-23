@@ -23,8 +23,20 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     ```bash
     cp frontend/.env-sample frontend/.env
     ```
-    On the deployment server, it's crucial to update the `API_BASE_URL` and `CLIENT_BASE_URL` with your respective values within the specified file.
+    On the deployment server, it's crucial to update the variables with your respective values within the specified file.
 
+    ```
+    API_BASE_URL= 
+    API_PORT=8000
+    CLIENT_BASE_URL=46.254.54.6
+    CLIENT_PORT=3000
+    DOMAIN=newtablab.com
+    SERVER_PATH=/home/deployer/sites/newtablab.com
+    SSH_ALIAS=newtablab
+    ```
+    
+    
+    
 3. **Install Frontend Dependencies and Build**
     ```bash
     (cd frontend && yarn)
