@@ -8,6 +8,7 @@ import os
 CLIENT_BASE_URL = os.environ.get('CLIENT_BASE_URL', '0.0.0.0')
 API_PORT = os.environ.get('API_PORT', '8000')
 CLIENT_PORT = os.environ.get('CLIENT_PORT', '3000')
+DOMAIN = os.environ.get('DOMAIN', '0.0.0.0')
 
 # Paths
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,6 +24,7 @@ ALLOWED_HOSTS = [
     CLIENT_BASE_URL, 
     f"{CLIENT_BASE_URL}:{API_PORT}",
     f"{CLIENT_BASE_URL}:{CLIENT_PORT}",
+    f"{DOMAIN}",
 ]
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
@@ -111,6 +113,8 @@ CORS_ALLOWED_ORIGINS = [
     f"http://{CLIENT_BASE_URL}:{CLIENT_PORT}",
     f"https://{CLIENT_BASE_URL}:{API_PORT}",
     f"https://{CLIENT_BASE_URL}:{CLIENT_PORT}",
+    f"http://{DOMAIN}",
+    f"https://{DOMAIN}",
 ]
 APPEND_SLASH = True
 
