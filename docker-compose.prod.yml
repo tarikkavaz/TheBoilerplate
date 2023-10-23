@@ -20,7 +20,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./static:/static
+      - ./backend/static_root:/static
       - images:/backend/media/images
 
   frontend:
