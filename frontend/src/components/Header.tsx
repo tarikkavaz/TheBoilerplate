@@ -57,7 +57,7 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      if (scrollY > 100) {
+      if (scrollY > 10) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -73,7 +73,7 @@ export default function Header() {
     <>
       <Container
         size="fluid"
-        className={`bg-white/[.09] dark:bg-black/[.09] text-black dark:text-white w-full h-50 fixed z-50 flex items-center justify-between backdrop-blur-md backdrop-opacity-100 ${
+        className={`bg-white/[.8] dark:bg-black/[.8] text-black dark:text-white w-full h-50 fixed z-50 flex items-center justify-between backdrop-blur-md backdrop-opacity-100 ${
           isScrolled
             ? "scrolled border-b border-slate-100/[.3] "
             : "border-b-0 border-transparent"
