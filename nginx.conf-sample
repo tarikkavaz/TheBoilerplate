@@ -12,12 +12,6 @@ server {
     add_header X-Content-Type-Options nosniff;
     add_header X-Debug-Message $request_uri always;
 
-    location /static/ {
-        alias /home/deployer/sites/newtablab.com/static_root/;
-        access_log off;
-        add_header Cache-Control "max-age=604800, public";
-    }
-
     location / {
         proxy_pass http://frontend:3000;
         proxy_set_header Host $host;
