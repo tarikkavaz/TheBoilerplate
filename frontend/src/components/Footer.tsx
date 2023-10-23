@@ -98,7 +98,7 @@ export default function Footer() {
   const year = date.getFullYear();
   return (
     <footer
-      className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative"
+      className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative border-t border-slate-200/80 dark:border-zinc-900"
       aria-labelledby="footer-heading"
     >
       <div className="overflow-hidden absolute z-10 w-full h-full">
