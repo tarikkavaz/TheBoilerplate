@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security
 SECRET_KEY = 'django-insecure-et^72^ib$yz@ggxs#e!enovydb$(^xw(%&@a^8#l--_=l5lfat'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     'frontend', 
     'backend', 

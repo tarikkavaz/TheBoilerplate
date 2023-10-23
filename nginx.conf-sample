@@ -12,6 +12,14 @@ server {
     add_header X-Content-Type-Options nosniff;
     add_header X-Debug-Message $request_uri always;
 
+    location /static/ {
+        alias /static/;
+    }
+
+    location /media/ {
+        alias /backend/media/;
+    }
+
     location / {
         proxy_pass http://frontend:3000;
         proxy_set_header Host $host;

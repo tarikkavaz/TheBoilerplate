@@ -46,6 +46,8 @@ services:
         - "80:80"
       volumes:
         - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        - ./static:/static
+        - images:/backend/media/images
       networks:
         - mynetwork
       depends_on:
