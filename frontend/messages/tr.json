@@ -18,7 +18,8 @@
     "localeLable": "Dili değiştir",
     "localeLocale": "{locale, select, tr {Türkçe} en {English} other {Unknown}}",
     "button": "Buton",
-    "wait": "Lütfen Bekleyin"
+    "wait": "Lütfen Bekleyin",
+    "copyright": "Tüm hakları saklıdır."
   },
   "Navigation": {
     "home": "Anasayfa",

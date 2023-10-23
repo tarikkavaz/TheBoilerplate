@@ -1,5 +1,6 @@
 "use client";
 import Container from "@/components/ui/Container";
+import { useLocale, useTranslations } from "next-intl";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 
@@ -94,6 +95,7 @@ const navigation = {
 };
 
 export default function Footer() {
+  const t = useTranslations("Globals");
   const date = new Date();
   const year = date.getFullYear();
   return (
@@ -203,7 +205,7 @@ export default function Footer() {
         </Container>
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
           <p className="text-xs leading-5 ">
-            &copy; {year} Your Company, Inc. All rights reserved.
+            &copy; {year} {t("sitename")}, {t("copyright")}
           </p>
         </div>
       </Container>

@@ -18,7 +18,8 @@
     "localeLable": "Change language",
     "localeLocale": "{locale, select, tr {Türkçe} en {English} other {Unknown}}",
     "button": "Button",
-    "wait": "Please wait"
+    "wait": "Please wait",
+    "copyright": "All rights reserved."
   },
   "Navigation": {
     "home": "Home",
