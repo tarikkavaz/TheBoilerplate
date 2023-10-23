@@ -25,6 +25,7 @@ ALLOWED_HOSTS = [
     f"{CLIENT_BASE_URL}:{API_PORT}",
     f"{CLIENT_BASE_URL}:{CLIENT_PORT}",
     f"{DOMAIN}",
+    f"www.{DOMAIN}",
 ]
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
@@ -115,6 +116,8 @@ CORS_ALLOWED_ORIGINS = [
     f"https://{CLIENT_BASE_URL}:{CLIENT_PORT}",
     f"http://{DOMAIN}",
     f"https://{DOMAIN}",
+    f"http://www.{DOMAIN}",
+    f"https://www.{DOMAIN}",
 ]
 APPEND_SLASH = True
 
