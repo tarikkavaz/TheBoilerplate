@@ -5,7 +5,7 @@ ssh_exec() {
     ssh -T $SSH_ALIAS << ENDSSH
         cd $SERVER_PATH
         $1
-    ENDSSH
+ENDSSH
 }
 
 docker_commands() {
