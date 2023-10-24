@@ -11,6 +11,19 @@
 }
 */
 
+button[data-headlessui-state="open"]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 9000px;
+  height: 9000px;
+  left: -100vw;
+  top: -50vh;
+  cursor: default;
+  background: rgba(0, 0, 0, 0);
+}
+
 .bg-left {
   left: 0;
   background-image: radial-gradient(

@@ -1,5 +1,6 @@
 "use client";
 import Container from "@/components/ui/Container";
+import { useLocale, useTranslations } from "next-intl";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 
@@ -94,11 +95,12 @@ const navigation = {
 };
 
 export default function Footer() {
+  const t = useTranslations("Globals");
   const date = new Date();
   const year = date.getFullYear();
   return (
     <footer
-      className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative"
+      className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative border-t border-slate-200/80 dark:border-zinc-900"
       aria-labelledby="footer-heading"
     >
       <div className="overflow-hidden absolute z-10 w-full h-full">
@@ -113,12 +115,9 @@ export default function Footer() {
         {/* <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32"> */}
         <div className="xl:grid xl:grid-cols-3 xl:gap-8 ">
           <div className="space-y-8">
-            <p className=" text-3xl font-medium ">TheBoilerplate</p>
+            <p className=" text-3xl font-medium ">{t("sitename")}</p>
 
-            <p className="text-sm leading-6">
-              Making the world a better place through constructing elegant
-              hierarchies.
-            </p>
+            <p className="text-sm leading-6">{t("sitedescription")}</p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
                 <a
@@ -203,7 +202,7 @@ export default function Footer() {
         </Container>
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
           <p className="text-xs leading-5 ">
-            &copy; {year} Your Company, Inc. All rights reserved.
+            &copy; {year} {t("sitename")}, {t("copyright")}
           </p>
         </div>
       </Container>

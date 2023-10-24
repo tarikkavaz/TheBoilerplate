@@ -9,31 +9,6 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function Navigation({ links }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
-  useEffect(() => {
-    const mainElement = document.querySelector("main");
-    const footerElement = document.querySelector("footer");
-
-    // select dropdowns
-    const dropdownMenus = document.querySelectorAll(
-      '[data-headlessui-state="open"]'
-    );
-    // "data-headlessui-state" controls
-    const isAnyDropdownOpen = Array.from(dropdownMenus).some(
-      (menu) => menu.getAttribute("data-headlessui-state") === "open"
-    );
-
-    if (mainElement && footerElement) {
-      if (isAnyDropdownOpen) {
-        mainElement.classList.add("pointer-events-none");
-        footerElement.classList.add("pointer-events-none");
-      } else {
-        mainElement.classList.remove("pointer-events-none");
-        footerElement.classList.remove("pointer-events-none");
-      }
-    }
-  }, [isPopoverOpen]);
 
   return (
     <>
@@ -45,7 +20,7 @@ export default function Navigation({ links }: NavbarProps) {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-blue-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 dark:text-white text-zinc-800"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <span className="sr-only">Open main menu</span>
@@ -58,10 +33,7 @@ export default function Navigation({ links }: NavbarProps) {
               {({ open }) => (
                 <>
                   {menuItem.children ? (
-                    <Popover.Button
-                      onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-                      className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800"
-                    >
+                    <Popover.Button className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800">
                       {menuItem.title}
                       <ChevronDownIcon
                         className={
@@ -126,7 +98,7 @@ export default function Navigation({ links }: NavbarProps) {
       </nav>
       {/* end desktop menu */}
       {/* mobile menu */}
-      <section className="relative w-full">
+      <section className=" absolute top-[60px] left-0 w-full lg:static lg:top-auto lg:left-auto lg:w-auto">
         <Transition
           show={mobileMenuOpen}
           enter="transition ease-out duration-200"
@@ -136,31 +108,31 @@ export default function Navigation({ links }: NavbarProps) {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className="lg:hidden">
-            <div className="space-y-1 bg-white px-4 pb-3 pt-2">
+          <div className="lg:hidden bg-slate-50 dark:bg-zinc-900 h-[100vh]">
+            <div className="space-y-1 px-4 py-4">
               {links.map((menuItem) => (
                 <div key={menuItem.title}>
                   {menuItem.children ? (
                     <Disclosure>
                       {({ open }) => (
                         <>
-                          <Disclosure.Button className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                          <Disclosure.Button className="flex items-center justify-stretch w-full rounded-md px-3 py-2 text-base font-medium text-zinc-700 dark:text-slate-100 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-gray-900">
                             {menuItem.title}
                             <ChevronDownIcon
                               className={`${
                                 open ? "rotate-180 transform" : ""
-                              } ml-1 h-5 w-5`}
+                              } lg:ml-1 h-5 w-5 ml-auto`}
                               aria-hidden="true"
                             />
                           </Disclosure.Button>
                           <Disclosure.Panel>
-                            <div className="pl-4">
+                            <div className="pl-2 lg:pl-4">
                               {menuItem.children?.map((submenuItem) => (
                                 <Link
                                   key={submenuItem.title}
                                   href={submenuItem.link}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                  className="block rounded-md px-3 py-2 text-base font-medium text-zinc-700 dark:text-slate-100 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-gray-900"
                                 >
                                   {submenuItem.title}
                                 </Link>
@@ -174,7 +146,7 @@ export default function Navigation({ links }: NavbarProps) {
                     <Link
                       href={menuItem.link}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-700 dark:text-slate-100 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-gray-900"
                     >
                       {menuItem.title}
                     </Link>
