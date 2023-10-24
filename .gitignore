@@ -159,3 +159,6 @@ ENV/
 
 # nginx
 nginx.conf
+*.pem
+*.key
+*.crt
