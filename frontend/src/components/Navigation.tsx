@@ -65,9 +65,17 @@ export default function Navigation({ links }: NavbarProps) {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-indigo-900 ring-opacity-5">
-                          <div className="relative grid grid-cols-1 gap-6 bg-indigo-900 px-5 py-6 sm:gap-8 sm:p-4">
+                      {/* before:rotate-45 */}
+
+                      {/* <Popover.Panel className="before:content-['▲'] before:text-red-600 before:bg-white/[.96] dark:before:bg-black/[.96] before:left-[calc(50%-.5rem)] before:top-[-18px] before:h-4 before:w-4 before:absolute before:z-10 absolute z-10 left-1/2 mt-3 w-screen max-w-xs -translate-x-1/2 transform px-2 sm:px-0"> */}
+                      <Popover.Panel
+                        className="before:w-0 before:h-0 before:left-[calc(50%-5px)] 
+  before:border-l-[10px] before:border-l-transparent
+  before:border-b-[10px] before:border-b-slate-100 dark:before:border-b-zinc-800
+  before:border-r-[10px] before:border-r-transparent before:top-[-10px] before:absolute before:z-10 absolute z-10 left-1/2 mt-3 w-screen max-w-xs -translate-x-1/2 transform px-2 sm:px-0"
+                      >
+                        <div className="overflow-hidden relative z-20 rounded-lg shadow-lg">
+                          <div className="relative grid grid-cols-1 gap-6 px-5 py-6 sm:gap-8 sm:p-4 bg-slate-100 dark:bg-zinc-800 ">
                             {menuItem.children.map((submenuItem) => (
                               <Link
                                 key={submenuItem.title}
@@ -76,15 +84,36 @@ export default function Navigation({ links }: NavbarProps) {
                                 rel={
                                   menuItem.newtab ? "noopener noreferrer" : ""
                                 }
-                                className="group -m-3 flex items-start rounded-lg p-3 hover:bg-indigo-700"
+                                className="group -m-3 flex items-start rounded-lg p-3 text-zinc-800 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-zinc-900 hover:text-gray-900"
                               >
                                 <div className="ml-4">
-                                  <p className="text-base font-medium text-white">
+                                  <p className="text-base font-medium ">
                                     {submenuItem.title}
                                   </p>
                                 </div>
                               </Link>
                             ))}
+                            <Link
+                              href="#"
+                              className="group -m-3 flex items-start rounded-lg p-3 text-zinc-800 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-zinc-900 hover:text-gray-900"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium">
+                                  Consectetur adipisicing elit tincidunt mauris
+                                  eu risus
+                                </p>
+                              </div>
+                            </Link>
+                            <Link
+                              href="#"
+                              className="group -m-3 flex items-start rounded-lg p-3 text-zinc-800 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-zinc-900 hover:text-gray-900"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium">
+                                  Test Menu Item
+                                </p>
+                              </div>
+                            </Link>
                           </div>
                         </div>
                       </Popover.Panel>
