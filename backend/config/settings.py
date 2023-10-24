@@ -123,6 +123,20 @@ CORS_ALLOWED_ORIGINS = [
     'https://newtablab.com',
     'https://www.newtablab.com',
 ]
+CSRF_TRUSTED_ORIGINS = [
+    f"http://0.0.0.0:{API_PORT}",
+    f"http://0.0.0.0:{CLIENT_PORT}",
+    f"http://{CLIENT_BASE_URL}:{API_PORT}",
+    f"http://{CLIENT_BASE_URL}:{CLIENT_PORT}",
+    f"https://{CLIENT_BASE_URL}:{API_PORT}",
+    f"https://{CLIENT_BASE_URL}:{CLIENT_PORT}",
+    f"http://{DOMAIN}",
+    f"https://{DOMAIN}",
+    f"http://www.{DOMAIN}",
+    f"https://www.{DOMAIN}",
+    'https://newtablab.com',
+    'https://www.newtablab.com',
+]
 APPEND_SLASH = True
 
 # CKEDITOR
