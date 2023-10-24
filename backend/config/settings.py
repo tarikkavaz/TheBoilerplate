@@ -21,6 +21,8 @@ ALLOWED_HOSTS = [
     'backend', 
     '0.0.0.0', 
     '0.0.0.0:8000', 
+    'newtablab.com', 
+    'www.newtablab.com', 
     CLIENT_BASE_URL, 
     f"{CLIENT_BASE_URL}:{API_PORT}",
     f"{CLIENT_BASE_URL}:{CLIENT_PORT}",
@@ -45,8 +47,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -118,6 +120,8 @@ CORS_ALLOWED_ORIGINS = [
     f"https://{DOMAIN}",
     f"http://www.{DOMAIN}",
     f"https://www.{DOMAIN}",
+    'https://newtablab.com',
+    'https://www.newtablab.com',
 ]
 APPEND_SLASH = True
 
@@ -143,5 +147,5 @@ SESSION_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = f".{DOMAIN}"  # Allow subdomains
+CSRF_COOKIE_DOMAIN = '.newtablab.com'  # Allow subdomains
 CSRF_COOKIE_PATH = '/'

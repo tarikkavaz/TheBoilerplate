@@ -30,3 +30,11 @@ docker-compose exec backend python manage.py migrate &&
 docker-compose exec backend python manage.py loaddata datadump.json &&
 docker-compose exec backend python manage.py collectstatic
 ```
+
+```bash
+docker-compose down --remove-orphans &&
+docker-compose -f docker-compose.prod.yml up --build -d &&
+docker-compose exec backend python manage.py migrate &&
+docker-compose exec backend python manage.py loaddata datadump.json &&
+docker-compose exec backend python manage.py collectstatic
+```
