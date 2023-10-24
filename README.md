@@ -105,9 +105,9 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
 
 2. **Setup Frontend Environment Variables**
     ```bash
-    cp frontend/.env-sample frontend/.env
+    cp frontend/.env-sample-server frontend/.env
     ```
-    Ensure that the values `SERVER_PATH` and `SSH_ALIAS` are correctly set.
+    Ensure that the values are correctly set.
 
 2. **Setup Nginx file**
     ```bash
