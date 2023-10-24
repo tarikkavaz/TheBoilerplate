@@ -115,7 +115,7 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     ```
     Ensure that the values `YOURDOMAINNAME` are correctly set.
 
-3. **Run the Docker**
+4. **Run the Docker**
    
     ```bash
     docker-compose -f docker-compose.prod.yml up --build -d &&
@@ -123,3 +123,35 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     docker-compose exec backend python manage.py loaddata datadump.json &&
     docker-compose exec backend python manage.py collectstatic
     ```
+
+5. **Run the Deploy Script**
+
+    First, ensure that your script is executable by running the following command:
+
+    ```bash
+    chmod +x deploy.sh
+    ```
+
+    Now, you can **deploy** your application using the following command:
+
+    ```bash
+    ./deploy.sh deploy
+    ```
+
+    If you wish to **prune** unused Docker objects during the deployment, you can use the following command instead:
+
+    ```bash
+    ./deploy.sh prune
+    ```
+
+    For other management tasks, you can use the script with different parameters as follows:
+
+    To **dumpdata** data:
+      ```bash
+      ./deploy.sh dump
+      ```
+
+    To **load** data:
+      ```bash
+      ./deploy.sh load
+      ```
