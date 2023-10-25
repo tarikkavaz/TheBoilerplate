@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Environment variables
 ENVIRONMENT = os.getenv('ENVIRONMENT', default='local')
@@ -13,7 +14,7 @@ DEBUG = True if ENVIRONMENT == 'local' else False
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = [os.getenv('DOMAIN', 'newtablab.com'), 'www.newtablab.com']
+    ALLOWED_HOSTS = [os.getenv('DOMAIN', 'https://newtablab.com'), 'https://www.newtablab.com']
 
 # Dynamic CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
@@ -69,6 +70,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = [('en', _('English')), ('tr', _('Turkish'))]
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
