@@ -4,7 +4,12 @@ import Link from "next/link";
 import { Fragment, useState, useEffect } from "react";
 import Container from "@/components/ui/Container";
 import { fetchData, SERVER_IP } from "@/utils/api";
-import { MenuItem, NavItem } from "@/utils/types";
+import {
+  MenuItem,
+  MobileMenuOpenProps,
+  NavItem,
+  NavbarProps,
+} from "@/utils/types";
 import { useLocale, useTranslations } from "next-intl";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
@@ -24,22 +29,30 @@ async function fetchNavigationData(locale: string) {
   }
 }
 /* end fetchNavigationData */
+
 /* Logo */
-function Logo() {
+function Logo({ mobileMenuOpen, setMobileMenuOpen }: MobileMenuOpenProps) {
   const locale = useLocale();
+  const handleLogoClick = () => {
+    setMobileMenuOpen(false);
+  };
   return (
     <>
-      <div className="block p-3 space-y-1 leading-none no-underline rounded-md outline-none select-none">
-        <Link href={`/${locale}`} legacyBehavior passHref>
-          <div className="text-3xl">Logo</div>
-        </Link>
-      </div>
+      <Link
+        href={`/${locale}`}
+        className="text-3xl block p-3 space-y-1 leading-none no-underline rounded-md outline-none select-none text-red-500"
+        onClick={handleLogoClick}
+      >
+        Logo
+      </Link>
     </>
   );
 }
+
 /* end Logo */
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navigationData, setNavigationData] = useState<MenuItem[] | null>(null);
   const locale = useLocale();
   const t = useTranslations("Globals");
@@ -82,10 +95,17 @@ export default function Header() {
         // style={{ background: "var(--popover-foreground)" }}
       >
         <div>
-          <Logo />
+          <Logo
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+          />
         </div>
         <div>
-          <Navigation links={navigationData || []} />
+          <Navigation
+            links={navigationData || []}
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+          />
         </div>
         <div className="flex gap-2">
           <ThemeSwitcher />

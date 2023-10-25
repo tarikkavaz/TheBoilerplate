@@ -7,8 +7,12 @@ import { NavbarProps } from "@/utils/types";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-export default function Navigation({ links }: NavbarProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Navigation({
+  links,
+  mobileMenuOpen,
+  setMobileMenuOpen,
+}: NavbarProps) {
+  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <>

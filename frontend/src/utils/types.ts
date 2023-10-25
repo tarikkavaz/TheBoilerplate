@@ -19,14 +19,14 @@ export interface NavItem {
   title: string;
   link: string;
   children?: ChildItem[];
-};
+}
 
 export interface ChildItem {
   newtab: boolean | undefined;
   title: string;
   link: string;
   description: string;
-};
+}
 
 export interface MobileMenuProps {
   navigationData: NavItem[];
@@ -51,8 +51,14 @@ export interface Submenu {
   icon?: string;
 }
 
+export interface MobileMenuOpenProps {
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 export interface NavbarProps {
   links: MenuItem[];
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface HomeProps {
