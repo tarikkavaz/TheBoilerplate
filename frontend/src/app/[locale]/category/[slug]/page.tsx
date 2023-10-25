@@ -67,7 +67,7 @@ export default async function Page({
     <>
       <Container className="p-10 mt-16" id="content">
       <h1>
-        {t("category")}: <span className="text-gray-500">{title}</span>
+        {t("category")}: <span className="">{title}</span>
       </h1>
       <ul>
         {posts.map((post) => (

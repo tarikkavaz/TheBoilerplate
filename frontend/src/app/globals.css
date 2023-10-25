@@ -11,16 +11,16 @@ html {
 
 /* headings */
 h1 {
-  @apply mt-12 mb-24 text-5xl tracking-tight text-indigo-800;
+  @apply mt-12 mb-24 text-5xl tracking-tight;
 }
 h2 {
-  @apply mb-6 text-2xl tracking-tight text-indigo-800;
+  @apply mb-6 text-2xl tracking-tight;
 }
 h3 {
-  @apply mb-6 text-xl tracking-tight text-indigo-800;
+  @apply mb-6 text-xl tracking-tight;
 }
 h4 {
-  @apply mb-6 text-lg tracking-tight text-indigo-800;
+  @apply mb-6 text-lg tracking-tight;
 }
 
 /* text */
@@ -28,7 +28,7 @@ h4 {
   @apply  mb-4;
 }
 #content p, #content li {
-  @apply text-gray-600;
+  /* @apply text-gray-600; */
 }
 #content strong {
   @apply font-bold
@@ -37,7 +37,7 @@ h4 {
   @apply  ml-8 list-disc;
 }
 #content a {
-  @apply text-gray-500 underline hover:text-indigo-800;
+  @apply text-gray-500 underline;
 }
 
 /* Slider */

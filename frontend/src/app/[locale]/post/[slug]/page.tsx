@@ -60,7 +60,7 @@ export default async function Page({
               priority={true}
               fill={true}
               alt={post.title}
-              className="bg-slate-500 object-cover"
+              className=" object-cover"
             />
           </div>
         )}
@@ -90,7 +90,7 @@ export default async function Page({
                   width={500}
                   height={300}
                   alt={img.alt_text}
-                  className="bg-slate-500"
+                  className=""
                 />
               </picture>
             ))}
