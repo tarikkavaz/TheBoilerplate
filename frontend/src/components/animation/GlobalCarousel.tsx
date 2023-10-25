@@ -15,7 +15,7 @@ export const GlobalCarousel: FC<GlobalCarouselProps> = ({
   centeredSlides = true,
   paginationClickable = true,
   navigationEnabled = true,
-  className = "h-[300px] md:h-[400px] lg:h-[550px] bg-slate-300"
+  className = "h-[300px] md:h-[400px] lg:h-[550px] bg-[hsl(var(--background))]"
 }) => {
   return (
     <Swiper

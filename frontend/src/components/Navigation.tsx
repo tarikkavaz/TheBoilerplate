@@ -10,7 +10,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 export default function Navigation({
   links,
   mobileMenuOpen,
-  setMobileMenuOpen,
+  setMobileMenuOpen
 }: NavbarProps) {
   return (
     <>
@@ -22,7 +22,7 @@ export default function Navigation({
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 dark:text-white text-zinc-800"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <span className="sr-only">Open main menu</span>
@@ -35,7 +35,7 @@ export default function Navigation({
               {({ open }) => (
                 <>
                   {menuItem.children ? (
-                    <Popover.Button className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800">
+                    <Popover.Button className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-accent/0 hover:bg-accent ">
                       {menuItem.title}
                       <ChevronDownIcon
                         className={
@@ -51,7 +51,7 @@ export default function Navigation({
                       href={menuItem.link}
                       target={menuItem.newtab ? "_blank" : "_self"}
                       rel={menuItem.newtab ? "noopener noreferrer" : ""}
-                      className="text-sm font-semibold leading-6 rounded-md px-4 py-2 bg-slate-100/0 hover:bg-slate-100 dark:bg-zinc-700/0 dark:hover:bg-zinc-800"
+                      className="text-sm font-semibold leading-6 rounded-md px-4 py-2 bg-accent/0 hover:bg-accent"
                     >
                       {menuItem.title}
                     </Link>
@@ -67,9 +67,9 @@ export default function Navigation({
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="before:w-0 before:h-0 before:left-[calc(50%-5px)] before:border-l-[10px] before:border-l-transparent before:border-b-[10px] before:border-b-slate-100 dark:before:border-b-zinc-800 before:border-r-[10px] before:border-r-transparent before:top-[-10px] before:absolute before:z-10 absolute z-10 left-1/2 mt-3 w-screen max-w-xs -translate-x-1/2 transform px-2 sm:px-0">
+                      <Popover.Panel className="before:w-0 before:h-0 before:left-[calc(50%-5px)] before:border-l-[10px] before:border-l-transparent before:border-b-[10px] before:border-b-accent before:border-r-[10px] before:border-r-transparent before:top-[-10px] before:absolute before:z-10 absolute z-10 left-1/2 mt-3 w-screen max-w-xs -translate-x-1/2 transform px-2 sm:px-0">
                         <div className="overflow-hidden relative z-20 rounded-lg shadow-lg">
-                          <div className="relative grid grid-cols-1 gap-6 px-5 py-6 sm:gap-8 sm:p-4 bg-slate-100 dark:bg-zinc-800 ">
+                          <div className="relative grid grid-cols-1 gap-6 px-5 py-6 sm:gap-8 sm:p-4 bg-accent">
                             {menuItem.children.map((submenuItem) => (
                               <Link
                                 key={submenuItem.title}
@@ -78,7 +78,7 @@ export default function Navigation({
                                 rel={
                                   menuItem.newtab ? "noopener noreferrer" : ""
                                 }
-                                className="group -m-3 flex items-start rounded-lg p-3 text-zinc-800 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-zinc-900 hover:text-gray-900"
+                                className="group -m-3 flex items-start rounded-lg p-3 text-foreground  hover:text-foreground hover:bg-background"
                               >
                                 <div className="ml-4">
                                   <p className="text-base font-medium ">
@@ -110,7 +110,7 @@ export default function Navigation({
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className="lg:hidden bg-slate-50 dark:bg-zinc-900 h-[100vh]">
+          <div className="lg:hidden bg-background h-[100vh]">
             <div className="space-y-1 px-4 py-4">
               {links.map((menuItem) => (
                 <div key={menuItem.title}>
@@ -118,7 +118,7 @@ export default function Navigation({
                     <Disclosure>
                       {({ open }) => (
                         <>
-                          <Disclosure.Button className="flex items-center justify-stretch w-full rounded-md px-3 py-2 text-base font-medium text-zinc-700 dark:text-slate-100 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-gray-900">
+                          <Disclosure.Button className="flex items-center justify-stretch w-full rounded-md px-3 py-2 text-base font-medium text-foreground  hover:text-foreground hover:bg-background">
                             {menuItem.title}
                             <ChevronDownIcon
                               className={`${
@@ -134,7 +134,8 @@ export default function Navigation({
                                   key={submenuItem.title}
                                   href={submenuItem.link}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className="block rounded-md px-3 py-2 text-base font-medium text-zinc-700 dark:text-slate-100 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-gray-900"
+                                  className="block rounded-md px-3 py-2 text-base font-medium text-foreground
+                                  hover:bg-background hover:text-foreground"
                                 >
                                   {submenuItem.title}
                                 </Link>
@@ -148,7 +149,8 @@ export default function Navigation({
                     <Link
                       href={menuItem.link}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-700 dark:text-slate-100 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-gray-900"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-foreground
+                                  hover:bg-background hover:text-foreground"
                     >
                       {menuItem.title}
                     </Link>

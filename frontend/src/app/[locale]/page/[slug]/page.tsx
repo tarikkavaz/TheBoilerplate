@@ -55,7 +55,7 @@ export default async function Page({
             priority={true}
             fill={true}
             alt={page.title}
-            className=" object-cover"
+            className="object-cover"
           />
         </div>
       )}
@@ -74,7 +74,6 @@ export default async function Page({
                   width={500}
                   height={300}
                   alt={img.alt_text}
-                  className=""
                 />
               </picture>
             </picture>

@@ -100,7 +100,7 @@ export default function Footer() {
   const year = date.getFullYear();
   return (
     <footer
-      className="bg-slate-100 dark:bg-zinc-950 text-black dark:text-white relative border-t border-slate-200/80 dark:border-zinc-900"
+      className="bg-background text-foreground relative border-t border-border"
       aria-labelledby="footer-heading"
     >
       <div className="overflow-hidden absolute z-10 w-full h-full">
@@ -200,7 +200,7 @@ export default function Footer() {
             <LocaleSwitcher />
           </div>
         </Container>
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+        <div className="mt-16 border-t border-border pt-8 sm:mt-20 lg:mt-24">
           <p className="text-xs leading-5 ">
             &copy; {year} {t("sitename")}, {t("copyright")}
           </p>

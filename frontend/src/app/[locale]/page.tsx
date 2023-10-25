@@ -61,7 +61,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
       <Container size="fluid">
       <GlobalCarousel 
           images={homepage.images || []} 
-          className="h-[200px] md:h-[300px] lg:h-[450px] bg-[hsl(var(--accent))]" 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
         />
       </Container>
       <Container className="p-10 mt-16" id="content">
@@ -75,7 +75,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
                   width={500}
                   height={300}
                   alt={image.alt_text}
-                  className="bg-[hsl(var(--accent))]"
+                  className="bg-accent"
                 />
               </picture>
             ))}
@@ -107,7 +107,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
           </Button>
         </div>
         <div dangerouslySetInnerHTML={{ __html: homepage.content }} />
-        <hr className="h-0.5 my-10 bg-[hsl(var(--accent))]" />
+        <hr className="h-0.5 my-10 bg-accent" />
         <h2 className="mt-16">{t("posts")}</h2>
         <div className="grid grid-cols-3 gap-4 mt-8">
           {homepage.posts &&
@@ -124,7 +124,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
                       width={500}
                       height={250}
                       alt={post.title}
-                      className="bg-[hsl(var(--accent))]"
+                      className="bg-accent"
                     />
                   </picture>
 
@@ -137,7 +137,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
       <Container>
       <GlobalCarousel 
           images={homepage.images || []} 
-          className="h-[200px] md:h-[300px] lg:h-[450px] bg-[hsl(var(--accent))]" 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
         />
       </Container>
     </>

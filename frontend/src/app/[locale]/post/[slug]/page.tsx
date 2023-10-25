@@ -77,7 +77,7 @@ export default async function Page({
         <GlobalCarousel 
           images={post.images || []} 
           navigationEnabled={false} 
-          className="h-[200px] md:h-[300px] lg:h-[450px] bg-[hsl(var(--accent))]" 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
         />
         </div>
         
@@ -90,7 +90,6 @@ export default async function Page({
                   width={500}
                   height={300}
                   alt={img.alt_text}
-                  className=""
                 />
               </picture>
             ))}
