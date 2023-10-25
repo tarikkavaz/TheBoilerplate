@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.utils.html import format_html
-from django.contrib import admin
 
 class MenuItem(models.Model):
     title = models.CharField(max_length=200)
@@ -116,8 +115,6 @@ class Page(models.Model):
 class Image(models.Model):
     image = models.ImageField(upload_to='images/')
     alt_text = models.CharField(max_length=255, blank=True)
-    page = models.ForeignKey('Page', related_name='page_images', null=True, blank=True, on_delete=models.SET_NULL)
-    post = models.ForeignKey('Post', related_name='post_images', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.alt_text
@@ -125,25 +122,6 @@ class Image(models.Model):
     def image_thumbnail(self):
         return format_html('<img src="{}" height="50" />', self.image.url)
     image_thumbnail.short_description = 'Thumbnail'
-
-class ImageInline(admin.TabularInline):
-    model = Image
-    extra = 1  # Number of extra "empty" rows to display
-    fk_name = 'page'  # This is used to specify the ForeignKey field name
-
-@admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
-    inlines = [ImageInline]
-
-class PostImageInline(admin.TabularInline):
-    model = Image
-    extra = 1  # Number of extra "empty" rows to display
-    fk_name = 'post'  # This is used to specify the ForeignKey field name
-
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    inlines = [PostImageInline]
-
 
 class HomePage(models.Model):
     title = models.CharField(max_length=255, verbose_name="Site Title")
