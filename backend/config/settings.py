@@ -120,6 +120,9 @@ CORS_ALLOWED_ORIGINS = [
     f"https://{DOMAIN}",
     f"http://www.{DOMAIN}",
     f"https://www.{DOMAIN}",
+    'http://0.0.0.0',
+    'http://0.0.0.0:8000',
+    'http://0.0.0.0:3000',
     'https://newtablab.com',
     'https://www.newtablab.com',
 ]
