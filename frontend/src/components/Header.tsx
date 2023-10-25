@@ -40,7 +40,7 @@ function Logo({ mobileMenuOpen, setMobileMenuOpen }: MobileMenuOpenProps) {
     <>
       <Link
         href={`/${locale}`}
-        className="text-3xl block p-3 space-y-1 leading-none no-underline rounded-md outline-none select-none text-red-500"
+        className="text-3xl block p-3 space-y-1 leading-none no-underline rounded-md outline-none select-none"
         onClick={handleLogoClick}
       >
         Logo
