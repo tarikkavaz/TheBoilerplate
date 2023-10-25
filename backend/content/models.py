@@ -13,7 +13,7 @@ class MenuItem(models.Model):
     page = models.ForeignKey('Page', blank=True, null=True, on_delete=models.SET_NULL)
     newtab = models.BooleanField(default=False, verbose_name="Open in new Tab")
     order = models.PositiveIntegerField(default=0)
-    lang = models.CharField(max_length=2, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
+    lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
 
     class Meta:
         ordering = ['order']
@@ -65,7 +65,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True, blank=True)
     categories = models.ManyToManyField(Category, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    lang = models.CharField(max_length=2, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
+    lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -92,7 +92,7 @@ class Page(models.Model):
     content = RichTextField(verbose_name="Page Content")
     image = models.ForeignKey('Image', on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Selected Cover Image", related_name="page_selected_image")
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="page_images")
-    lang = models.CharField(max_length=2, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
+    lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -129,7 +129,7 @@ class HomePage(models.Model):
     content = RichTextField()
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Images")
     posts = models.ManyToManyField('Post', blank=True, verbose_name="Select Posts to display on Homepage")
-    lang = models.CharField(max_length=2, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
+    lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
 
     def __str__(self):
         return self.title

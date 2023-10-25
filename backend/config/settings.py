@@ -1,35 +1,26 @@
 import os
 from pathlib import Path
-from django.utils.translation import gettext_lazy as _
-
-import os
 
 # Environment variables
-CLIENT_BASE_URL = os.environ.get('CLIENT_BASE_URL', '0.0.0.0')
-API_PORT = os.environ.get('API_PORT', '8000')
-CLIENT_PORT = os.environ.get('CLIENT_PORT', '3000')
-DOMAIN = os.environ.get('DOMAIN', '0.0.0.0')
+ENVIRONMENT = os.getenv('ENVIRONMENT', default='local')
 
-# Paths
+# Common settings
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Security
 SECRET_KEY = 'django-insecure-et^72^ib$yz@ggxs#e!enovydb$(^xw(%&@a^8#l--_=l5lfat'
-DEBUG = True
-ALLOWED_HOSTS = [
-    'frontend', 
-    'backend', 
-    '0.0.0.0', 
-    '0.0.0.0:8000', 
-    'newtablab.com', 
-    'www.newtablab.com', 
-    CLIENT_BASE_URL, 
-    f"{CLIENT_BASE_URL}:{API_PORT}",
-    f"{CLIENT_BASE_URL}:{CLIENT_PORT}",
-    f"{DOMAIN}",
-    f"www.{DOMAIN}",
+DEBUG = True if ENVIRONMENT == 'local' else False
+
+# Dynamic ALLOWED_HOSTS
+if DEBUG:
+    ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+else:
+    ALLOWED_HOSTS = [os.getenv('DOMAIN', 'newtablab.com')]
+
+# Dynamic CORS_ALLOWED_ORIGINS
+CORS_ALLOWED_ORIGINS = [
+    f"http://{host}:{port}" for host in ALLOWED_HOSTS for port in ['8000', '3000']
+] + [
+    f"https://{host}" for host in ALLOWED_HOSTS
 ]
-SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # Application definition
 INSTALLED_APPS = [
@@ -78,7 +69,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-LANGUAGES = [('en', _('English')), ('tr', _('Turkish'))]
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -109,35 +99,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # REST FRAMEWORK and CORS
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    f"http://0.0.0.0:{API_PORT}",
-    f"http://0.0.0.0:{CLIENT_PORT}",
-    f"http://{CLIENT_BASE_URL}:{API_PORT}",
-    f"http://{CLIENT_BASE_URL}:{CLIENT_PORT}",
-    f"https://{CLIENT_BASE_URL}:{API_PORT}",
-    f"https://{CLIENT_BASE_URL}:{CLIENT_PORT}",
-    f"http://{DOMAIN}",
-    f"https://{DOMAIN}",
-    f"http://www.{DOMAIN}",
-    f"https://www.{DOMAIN}",
-    'https://newtablab.com',
-    'https://www.newtablab.com',
-]
-CSRF_TRUSTED_ORIGINS = [
-    f"http://0.0.0.0:{API_PORT}",
-    f"http://0.0.0.0:{CLIENT_PORT}",
-    f"http://{CLIENT_BASE_URL}:{API_PORT}",
-    f"http://{CLIENT_BASE_URL}:{CLIENT_PORT}",
-    f"https://{CLIENT_BASE_URL}:{API_PORT}",
-    f"https://{CLIENT_BASE_URL}:{CLIENT_PORT}",
-    f"http://{DOMAIN}",
-    f"https://{DOMAIN}",
-    f"http://www.{DOMAIN}",
-    f"https://www.{DOMAIN}",
-    'https://newtablab.com',
-    'https://www.newtablab.com',
-]
-APPEND_SLASH = True
+CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 
 # CKEDITOR
 CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'
@@ -156,10 +119,3 @@ CKEDITOR_CONFIGS = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-SESSION_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = '.newtablab.com'  # Allow subdomains
-CSRF_COOKIE_PATH = '/'
