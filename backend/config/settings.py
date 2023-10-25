@@ -14,7 +14,7 @@ DEBUG = True if ENVIRONMENT == 'local' else False
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = [os.getenv('DOMAIN', 'https://newtablab.com'), 'https://www.newtablab.com']
+    ALLOWED_HOSTS = ['newtablab.com', 'www.newtablab.com']
 
 # Dynamic CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
