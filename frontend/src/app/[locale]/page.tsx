@@ -61,7 +61,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
       <Container size="fluid">
       <GlobalCarousel 
           images={homepage.images || []} 
-          className="h-[200px] md:h-[300px] lg:h-[450px] bg-slate-100" 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-[hsl(var(--accent))]" 
         />
       </Container>
       <Container className="p-10 mt-16" id="content">
@@ -75,14 +75,13 @@ export default async function Posts({ params: { locale } }: HomeProps) {
                   width={500}
                   height={300}
                   alt={image.alt_text}
-                  className="bg-slate-500"
+                  className="bg-[hsl(var(--accent))]"
                 />
               </picture>
             ))}
         </div>
         <h1>{homepage.title}</h1>
-        {/* <div className="flex flex-wrap gap-4 p-4 my-16 rounded bg-slate-300"> */}
-        <div className="flex-wrap gap-4 p-4 my-16 rounded bg-slate-100">
+        <div className="flex flex-wrap gap-4 p-4 my-16 rounded">
           <Button>{t("button")}</Button>
           <Button variant="secondary">
             {t("button")}
@@ -108,7 +107,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
           </Button>
         </div>
         <div dangerouslySetInnerHTML={{ __html: homepage.content }} />
-        <hr className="h-0.5 my-10 bg-indigo-900" />
+        <hr className="h-0.5 my-10 bg-[hsl(var(--accent))]" />
         <h2 className="mt-16">{t("posts")}</h2>
         <div className="grid grid-cols-3 gap-4 mt-8">
           {homepage.posts &&
@@ -125,7 +124,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
                       width={500}
                       height={250}
                       alt={post.title}
-                      className="bg-slate-500"
+                      className="bg-[hsl(var(--accent))]"
                     />
                   </picture>
 
@@ -138,7 +137,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
       <Container>
       <GlobalCarousel 
           images={homepage.images || []} 
-          className="h-[200px] md:h-[300px] lg:h-[450px] bg-slate-100" 
+          className="h-[200px] md:h-[300px] lg:h-[450px] bg-[hsl(var(--accent))]" 
         />
       </Container>
     </>
