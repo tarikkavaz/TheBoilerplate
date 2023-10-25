@@ -12,7 +12,7 @@ DEBUG = True if ENVIRONMENT == 'local' else False
 
 # Dynamic ALLOWED_HOSTS
 if DEBUG:
-    ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'backend', 'frontend']
 else:
     ALLOWED_HOSTS = ['newtablab.com', 'www.newtablab.com']
 
