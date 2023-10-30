@@ -1,11 +1,14 @@
 from django.contrib import admin
+from django.forms import widgets
+from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.models import User, Group
 from .models import Category, Tag, Post, Page, Image, HomePage, MenuItem
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib.admin import AdminSite
-from adminsortable2.admin import SortableAdminMixin
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 
 # Define a custom order for apps and models
 APP_ORDER = {
@@ -41,6 +44,35 @@ my_admin_site = CustomAdminSite(name='my_admin')
 my_admin_site.register(User, UserAdmin)
 my_admin_site.register(Group, GroupAdmin)
 
+class ImageThumbnailWidget(forms.Select):
+    def render_option(self, selected_choices, option_value, option_label):
+        if option_value:
+            image = Image.objects.get(pk=option_value)
+            thumbnail = format_html('<img src="{}" height="50" style="margin-right: 10px;"/>', image.image.url)
+            option_label = mark_safe(f"{thumbnail} {option_label}")
+        return super().render_option(selected_choices, option_value, option_label)
+
+class BaseImageInline(admin.TabularInline):
+    extra = 1
+    verbose_name = 'Image'
+    verbose_name_plural = 'Images'
+    readonly_fields = ('image_thumbnail',)
+
+    def image_thumbnail(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="150" />', obj.image.image.url)
+        return '- No Image -'
+    image_thumbnail.short_description = 'Thumbnail'
+
+class ImageInlinePage(BaseImageInline):
+    model = Page.images.through
+
+class ImageInlinePost(BaseImageInline):
+    model = Post.images.through
+
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('alt_text', 'image_thumbnail')
+
 class PostAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
     
@@ -50,9 +82,10 @@ class PostAdminForm(forms.ModelForm):
 
 class PostAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PostAdminForm
+    inlines = [ImageInlinePost]
     fieldsets = (
         ('Post', {
-            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content', 'images', 'categories', 'tags'),
+            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content', 'categories', 'tags'),
         }),
     )
     list_display = ('title', 'lang', 'order')
@@ -67,16 +100,14 @@ class PageAdminForm(forms.ModelForm):
 
 class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PageAdminForm
+    inlines = [ImageInlinePage]
     fieldsets = (
         ('Page', {
-            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content', 'images'),
+            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content'),
         }),
     )
     list_display = ('title', 'lang', 'order')
     list_filter = ('lang',)
-
-class ImageAdmin(admin.ModelAdmin):
-    list_display = ('alt_text', 'image_thumbnail')
 
 class HomePageAdmin(admin.ModelAdmin):
     fieldsets = (
