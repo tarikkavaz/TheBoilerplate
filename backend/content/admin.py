@@ -9,6 +9,8 @@ from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib.admin import AdminSite
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
+from .forms import PageAdminForm, PostAdminForm
+from .widgets import ImageThumbnailSelectWidget, ImageThumbnailWidget
 
 # Define a custom order for apps and models
 APP_ORDER = {
@@ -44,14 +46,6 @@ my_admin_site = CustomAdminSite(name='my_admin')
 my_admin_site.register(User, UserAdmin)
 my_admin_site.register(Group, GroupAdmin)
 
-class ImageThumbnailWidget(forms.Select):
-    def render_option(self, selected_choices, option_value, option_label):
-        if option_value:
-            image = Image.objects.get(pk=option_value)
-            thumbnail = format_html('<img src="{}" height="50" style="margin-right: 10px;"/>', image.image.url)
-            option_label = mark_safe(f"{thumbnail} {option_label}")
-        return super().render_option(selected_choices, option_value, option_label)
-
 class BaseImageInline(admin.TabularInline):
     extra = 1
     verbose_name = 'Image'
@@ -78,6 +72,9 @@ class ImageAdmin(admin.ModelAdmin):
 
 class PostAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
+    images = forms.ModelChoiceField(queryset=Image.objects.all(),
+                                widget=ImageThumbnailWidget,
+                                required=False)
     
     class Meta:
         model = Post
@@ -86,7 +83,7 @@ class PostAdminForm(forms.ModelForm):
 class PostAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PostAdminForm
     inlines = [ImageInlinePost]
-    readonly_fields = ('image_thumbnail',)  # New readonly_fields option
+    readonly_fields = ('image_thumbnail',)
 
     def image_thumbnail(self, obj):
         if obj.image and hasattr(obj.image.image, 'url'):
@@ -104,6 +101,9 @@ class PostAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 class PageAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
+    images = forms.ModelChoiceField(queryset=Image.objects.all(),
+                                widget=ImageThumbnailWidget,
+                                required=False)
     
     class Meta:
         model = Page
@@ -112,7 +112,7 @@ class PageAdminForm(forms.ModelForm):
 class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PageAdminForm
     inlines = [ImageInlinePage]
-    readonly_fields = ('image_thumbnail',)  # New readonly_fields option
+    readonly_fields = ('image_thumbnail',)
 
     def image_thumbnail(self, obj):
         if obj.image and hasattr(obj.image.image, 'url'):
@@ -128,10 +128,10 @@ class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_filter = ('lang',)
 
 class HomePageAdmin(admin.ModelAdmin):
-    inlines = [ImageInlineHomePage]  # Include the new inline class here
+    inlines = [ImageInlineHomePage]
     fieldsets = (
         ('HomePage', {
-            'fields': ('lang', 'title', 'pageinfo', 'content', 'posts'),  # Removed 'images' as it's now handled by the inline
+            'fields': ('lang', 'title', 'pageinfo', 'content', 'posts'),
         }),
     )
     list_display = ('title', 'lang')

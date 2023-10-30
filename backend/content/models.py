@@ -97,7 +97,8 @@ class Page(models.Model):
     image = models.ForeignKey('Image', on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Selected Cover Image", related_name="page_selected_image")
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="page_images")
     lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)  # New field for ordering
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    
     
     class Meta:
         ordering = ['order']

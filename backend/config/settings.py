@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'adminsortable2',
+    'django_select2',
 ]
 
 MIDDLEWARE = [
