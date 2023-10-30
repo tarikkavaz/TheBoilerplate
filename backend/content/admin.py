@@ -83,9 +83,17 @@ class PostAdminForm(forms.ModelForm):
 class PostAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PostAdminForm
     inlines = [ImageInlinePost]
+    readonly_fields = ('image_thumbnail',)  # New readonly_fields option
+
+    def image_thumbnail(self, obj):
+        if obj.image and hasattr(obj.image.image, 'url'):
+            return format_html('<img src="{}" width="150" />', obj.image.image.url)
+        return '- No Image -'
+    image_thumbnail.short_description = 'Selected Cover Image Thumbnail'
+
     fieldsets = (
         ('Post', {
-            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content', 'categories', 'tags'),
+            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'image_thumbnail', 'content', 'categories', 'tags'),
         }),
     )
     list_display = ('title', 'lang', 'order')
@@ -101,9 +109,16 @@ class PageAdminForm(forms.ModelForm):
 class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PageAdminForm
     inlines = [ImageInlinePage]
+    readonly_fields = ('image_thumbnail',)  # New readonly_fields option
+
+    def image_thumbnail(self, obj):
+        if obj.image and hasattr(obj.image.image, 'url'):
+            return format_html('<img src="{}" width="150" />', obj.image.image.url)
+        return '- No Image -'
+    image_thumbnail.short_description = 'Selected Cover Image Thumbnail'
     fieldsets = (
         ('Page', {
-            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content'),
+            'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'image_thumbnail', 'content'),
         }),
     )
     list_display = ('title', 'lang', 'order')
