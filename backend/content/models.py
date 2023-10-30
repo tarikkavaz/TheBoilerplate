@@ -135,7 +135,7 @@ class HomePage(models.Model):
     title = models.CharField(max_length=255, verbose_name="Site Title")
     pageinfo = models.TextField(blank=True, verbose_name="Site Description")
     content = RichTextField()
-    images = models.ManyToManyField('Image', blank=True, verbose_name="Select Images")
+    images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="home_images")
     posts = models.ManyToManyField('Post', blank=True, verbose_name="Select Posts to display on Homepage")
     lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
 

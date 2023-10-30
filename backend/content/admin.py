@@ -70,6 +70,9 @@ class ImageInlinePage(BaseImageInline):
 class ImageInlinePost(BaseImageInline):
     model = Post.images.through
 
+class ImageInlineHomePage(BaseImageInline):
+    model = HomePage.images.through
+
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('alt_text', 'image_thumbnail')
 
@@ -125,9 +128,10 @@ class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_filter = ('lang',)
 
 class HomePageAdmin(admin.ModelAdmin):
+    inlines = [ImageInlineHomePage]  # Include the new inline class here
     fieldsets = (
         ('HomePage', {
-            'fields': ('lang', 'title', 'pageinfo', 'content', 'images', 'posts'),
+            'fields': ('lang', 'title', 'pageinfo', 'content', 'posts'),  # Removed 'images' as it's now handled by the inline
         }),
     )
     list_display = ('title', 'lang')
