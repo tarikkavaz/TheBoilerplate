@@ -12,7 +12,7 @@ class MenuItem(models.Model):
     parent = models.ForeignKey('self', blank=True, null=True, related_name='submenus', on_delete=models.CASCADE)
     page = models.ForeignKey('Page', blank=True, null=True, on_delete=models.SET_NULL)
     newtab = models.BooleanField(default=False, verbose_name="Open in new Tab")
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=0, db_index=True)
     lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
 
     class Meta:
@@ -66,6 +66,10 @@ class Post(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ['order']
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -93,6 +97,10 @@ class Page(models.Model):
     image = models.ForeignKey('Image', on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Selected Cover Image", related_name="page_selected_image")
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="page_images")
     lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)  # New field for ordering
+    
+    class Meta:
+        ordering = ['order']
 
     def save(self, *args, **kwargs):
         if not self.slug:

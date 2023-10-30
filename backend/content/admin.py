@@ -5,6 +5,7 @@ from .models import Category, Tag, Post, Page, Image, HomePage, MenuItem
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib.admin import AdminSite
+from adminsortable2.admin import SortableAdminMixin
 
 # Define a custom order for apps and models
 APP_ORDER = {
@@ -47,14 +48,14 @@ class PostAdminForm(forms.ModelForm):
         model = Post
         fields = '__all__'
 
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PostAdminForm
     fieldsets = (
         ('Post', {
             'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content', 'images', 'categories', 'tags'),
         }),
     )
-    list_display = ('title', 'lang')
+    list_display = ('title', 'lang', 'order')
     list_filter = ('lang',)
 
 class PageAdminForm(forms.ModelForm):
@@ -64,14 +65,14 @@ class PageAdminForm(forms.ModelForm):
         model = Page
         fields = '__all__'
 
-class PageAdmin(admin.ModelAdmin):
+class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = PageAdminForm
     fieldsets = (
         ('Page', {
             'fields': ('lang', 'title', 'slug', 'pageinfo', 'langslug', 'image', 'content', 'images'),
         }),
     )
-    list_display = ('title', 'lang')
+    list_display = ('title', 'lang', 'order')
     list_filter = ('lang',)
 
 class ImageAdmin(admin.ModelAdmin):
@@ -97,7 +98,7 @@ class MenuItemForm(forms.ModelForm):
         if self.instance.link and self.instance.link.startswith('/api/'):
             self.initial['link'] = self.instance.link[4:]
 
-class MenuItemAdmin(admin.ModelAdmin):
+class MenuItemAdmin(SortableAdminMixin, admin.ModelAdmin):
     form = MenuItemForm
     list_display = ('title', 'lang', 'link', 'parent', 'page', 'order')
     fields = ('lang', 'title', 'order', 'parent', 'link', 'page')

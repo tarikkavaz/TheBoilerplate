@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'content',
     'ckeditor',
     'ckeditor_uploader',
+    'adminsortable2',
 ]
 
 MIDDLEWARE = [
