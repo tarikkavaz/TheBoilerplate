@@ -19,7 +19,7 @@ server {
     ssl_stapling on;
     ssl_stapling_verify on;
 
-    add_header Content-Security-Policy "default-src 'self' https://YOURDOMAIN.com; img-src http: https: data: blob:; font-src 'self' data: https://*.YOURDOMAIN.com https://fonts.gstatic.com; media-src 'self' https: blob: https://*.YOURDOMAIN.com; script-src 'self' https://www.google.com/ https://www.gstatic.com/ https://*.YOURDOMAIN.com https://www.youtube.com https://s.ytimg.com https://yastatic.net https://ssl.google-analytics.com https://www.google-analytics.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.googleapis.com https://code.jquery.com https://cdnjs.cloudflare.com https://secure.adnxs.com https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' https://*.YOURDOMAIN.com https://*.googleapis.com https://use.fontawesome.com https://cdnjs.cloudflare.com; child-src 'self' https://*.YOURDOMAIN.com https://player.vimeo.com https://www.youtube.com https://*.google.com https://*.googletagmanager.com https://*.twitter.com https://*.facebook.com; connect-src 'self' https://api.cookieseal.com https://YOURDOMAIN.com https://YOURDOMAIN.com/api/*; object-src 'self'; frame-src 'self' https://*.YOURDOMAIN.com https://bid.g.doubleclick.net https://*.google.com https://*.vimeo.com https://*.youtube.com;" always;
+    add_header Content-Security-Policy "default-src 'self' https://YOURDOMAIN.com; ..." always;
     add_header X-Frame-X-XSS-Protection 1;
     add_header X-Xss-Protection "1; mode=block" always;
     add_header X-Content-Type-Options "nosniff" always;
@@ -27,7 +27,7 @@ server {
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header Referrer-Policy "no-referrer-when-downgrade";
     add_header Strict-Transport-Security "max-age=31536000; includeSubdomains" always;
-    add_header Permissions-Policy: geolocation=(self "https://YOURDOMAIN.com"), microphone=()
+    add_header Permissions-Policy "geolocation=(self 'https://YOURDOMAIN.com'), microphone=()";
     add_header Public-Key-Pins "pin-sha256='X3pGTSOuJeEVw989IJ/cEtXUEmy52zs1TZQrU06KUKg='; pin-sha256='MHJYVThihUrJcxW6wcqyOISTXIsInsdj3xK8QrZbHec='; pin-sha256='isi41AizREkLvvft0IRW4u3XMFR2Yg7bvrF7padyCJg='; includeSubdomains; max-age=2592000" always;
 
     proxy_set_header Host $host;
