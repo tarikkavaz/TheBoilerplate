@@ -10,45 +10,48 @@ server {
     listen [::]:443 ssl http2;
     server_name YOURDOMAIN.com www.YOURDOMAIN.com;
 
+    # SSL Configuration
     ssl_certificate /etc/ssl/certs/YOURDOMAIN.com.crt;
-    ssl_certificate_key /etc/ssl/private/YOURDOMAIN.com.key;key
+    ssl_certificate_key /etc/ssl/private/YOURDOMAIN.com.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
 
-    server_name YOURDOMAIN.com www.YOURDOMAIN.com;
-
+    # Security Headers
+    add_header Content-Security-Policy "default-src 'self' https://YOURDOMAIN.com; ...";
+    add_header Permissions-Policy "geolocation=(self \"https://YOURDOMAIN.com\"), microphone=()";
     add_header X-Frame-X-XSS-Protection 1;
     add_header X-Xss-Protection "1; mode=block" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
     add_header Referrer-Policy "no-referrer-when-downgrade";
     add_header Feature-Policy "microphone 'none';camera 'none';";
     add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
     add_header X-Content-Type-Options nosniff;
     add_header X-Debug-Message $request_uri always;
+
+    # Proxy Settings
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
 
+    # Location Blocks
     location / {
         proxy_pass http://frontend:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_redirect off;
+        include /etc/nginx/proxy_params;
     }
 
     location /api {
         proxy_pass http://backend:8000/api;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_redirect off;
+        include /etc/nginx/proxy_params;
     }
 
     location /admin {
         proxy_pass http://backend:8000/admin;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_redirect off;
+        include /etc/nginx/proxy_params;
     }
 
     location /static/ {
