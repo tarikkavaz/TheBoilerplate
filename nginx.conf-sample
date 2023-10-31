@@ -26,9 +26,8 @@ server {
     add_header X-Debug-Message $request_uri always;
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header Referrer-Policy "no-referrer-when-downgrade";
-    add_header Feature-Policy "microphone 'none';camera 'none';";
     add_header Strict-Transport-Security "max-age=31536000; includeSubdomains" always;
-    add_header Permissions-Policy "camera=(), microphone=()" always;
+    add_header Permissions-Policy: geolocation=(self "https://YOURDOMAIN.com"), microphone=()
     add_header Public-Key-Pins "pin-sha256='X3pGTSOuJeEVw989IJ/cEtXUEmy52zs1TZQrU06KUKg='; pin-sha256='MHJYVThihUrJcxW6wcqyOISTXIsInsdj3xK8QrZbHec='; pin-sha256='isi41AizREkLvvft0IRW4u3XMFR2Yg7bvrF7padyCJg='; includeSubdomains; max-age=2592000" always;
 
     proxy_set_header Host $host;
