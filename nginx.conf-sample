@@ -11,17 +11,26 @@ server {
     server_name YOURDOMAIN.com www.YOURDOMAIN.com;
 
     ssl_certificate /etc/ssl/certs/YOURDOMAIN.com.crt;
-    ssl_certificate_key /etc/ssl/private/YOURDOMAIN.com.key;key
+    ssl_certificate_key /etc/ssl/private/YOURDOMAIN.com.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
 
-    server_name YOURDOMAIN.com www.YOURDOMAIN.com;
-
+    add_header Content-Security-Policy "default-src 'self' https://YOURDOMAIN.com; img-src http: https: data: blob:; font-src 'self' data: https://*.YOURDOMAIN.com https://fonts.gstatic.com; media-src 'self' https: blob: https://*.YOURDOMAIN.com; script-src 'self' https://www.google.com/ https://www.gstatic.com/ https://*.YOURDOMAIN.com https://www.youtube.com https://s.ytimg.com https://yastatic.net https://ssl.google-analytics.com https://www.google-analytics.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.googleapis.com https://code.jquery.com https://cdnjs.cloudflare.com https://secure.adnxs.com https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' https://*.YOURDOMAIN.com https://*.googleapis.com https://use.fontawesome.com https://cdnjs.cloudflare.com; child-src 'self' https://*.YOURDOMAIN.com https://player.vimeo.com https://www.youtube.com https://*.google.com https://*.googletagmanager.com https://*.twitter.com https://*.facebook.com; connect-src 'self' https://api.cookieseal.com https://YOURDOMAIN.com https://YOURDOMAIN.com/api/*; object-src 'self'; frame-src 'self' https://*.YOURDOMAIN.com https://bid.g.doubleclick.net https://*.google.com https://*.vimeo.com https://*.youtube.com;" always;
     add_header X-Frame-X-XSS-Protection 1;
     add_header X-Xss-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Debug-Message $request_uri always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
     add_header Referrer-Policy "no-referrer-when-downgrade";
     add_header Feature-Policy "microphone 'none';camera 'none';";
-    add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
-    add_header X-Content-Type-Options nosniff;
-    add_header X-Debug-Message $request_uri always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubdomains" always;
+    add_header Permissions-Policy "camera=(), microphone=()" always;
+    add_header Public-Key-Pins "pin-sha256='X3pGTSOuJeEVw989IJ/cEtXUEmy52zs1TZQrU06KUKg='; pin-sha256='MHJYVThihUrJcxW6wcqyOISTXIsInsdj3xK8QrZbHec='; pin-sha256='isi41AizREkLvvft0IRW4u3XMFR2Yg7bvrF7padyCJg='; includeSubdomains; max-age=2592000" always;
+
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
