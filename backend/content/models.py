@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.utils.html import format_html
+from django.core.validators import URLValidator
 
 class MenuItem(models.Model):
     title = models.CharField(max_length=200)
@@ -142,3 +143,32 @@ class HomePage(models.Model):
 
     def __str__(self):
         return self.title
+
+class Social(models.Model):
+    facebook = models.CharField(max_length=255, blank=True, validators=[URLValidator()])
+    twitter = models.CharField(max_length=255, blank=True, validators=[URLValidator()])
+    instagram = models.CharField(max_length=255, blank=True, validators=[URLValidator()])
+    threads = models.CharField(max_length=255, blank=True, validators=[URLValidator()])
+    youtube = models.CharField(max_length=255, blank=True, validators=[URLValidator()])
+    order = models.PositiveIntegerField(default=0, db_index=True)
+
+    class Meta:
+        ordering = ('order',)
+
+    def save(self, *args, **kwargs):
+        if not self.pk and Social.objects.exists():
+            # if you'll not check for self.pk 
+            # then error will also raised in update of exists model
+            raise ValidationError('There is can be only one Social instance')
+        super(Social, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ValidationError("Social instance can't be deleted")
+
+    def __str__(self):
+        return "Social Links"
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj

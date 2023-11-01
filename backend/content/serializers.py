@@ -1,6 +1,6 @@
 from rest_framework import serializers, generics
 from urllib.parse import urlparse
-from .models import Category, Tag, Post, Page, Image, HomePage, MenuItem
+from .models import Category, Tag, Post, Page, Image, HomePage, MenuItem, Social
 
 class FilteredEmptyDictListSerializer(serializers.ListSerializer):
     def to_representation(self, data):
@@ -63,9 +63,8 @@ class ImageSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         request = self.context.get('request')
         if representation['image']:
-            representation['image'] = instance.image.url  # Getting the relative URL directly
+            representation['image'] = instance.image.url
         return representation
-
 
 class PostSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)
@@ -78,7 +77,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_image(self, obj):
-        return obj.image_url  # return relative URL directly
+        return obj.image_url
 
 class PageSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)
@@ -91,7 +90,7 @@ class PageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_image(self, obj):
-        return obj.image_url  # return relative URL directly
+        return obj.image_url
 
 class HomePageSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=True)
@@ -115,3 +114,8 @@ class TagPostsView(generics.ListAPIView):
         slug = self.kwargs['slug']
         tag = Tag.objects.get(slug=slug)
         return Post.objects.filter(tags=tag)
+
+class SocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Social
+        fields = '__all__' 

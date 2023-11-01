@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.models import User, Group
-from .models import Category, Tag, Post, Page, Image, HomePage, MenuItem
+from .models import Category, Tag, Post, Page, Image, HomePage, MenuItem, Social
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib.admin import AdminSite
@@ -42,7 +42,6 @@ class CustomAdminSite(AdminSite):
         return app_list
 
 my_admin_site = CustomAdminSite(name='my_admin')
-
 my_admin_site.register(User, UserAdmin)
 my_admin_site.register(Group, GroupAdmin)
 
@@ -161,10 +160,17 @@ class MenuItemAdmin(SortableAdminMixin, admin.ModelAdmin):
             return obj.link[4:]
         return obj.link
 
+class SocialAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('order',)
+    fields = ('facebook', 'twitter', 'instagram', 'threads', 'youtube', 'order')
+
+
+
 my_admin_site.register(MenuItem, MenuItemAdmin)
 my_admin_site.register(Category)
 my_admin_site.register(Tag)
 my_admin_site.register(Post, PostAdmin)
 my_admin_site.register(Page, PageAdmin)
 my_admin_site.register(Image, ImageAdmin)
-my_admin_site.register(HomePage, HomePageAdmin) 
+my_admin_site.register(HomePage, HomePageAdmin)
+my_admin_site.register(Social, SocialAdmin)

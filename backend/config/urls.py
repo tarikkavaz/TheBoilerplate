@@ -4,7 +4,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from content.views import (CategoryViewSet, TagViewSet, PostViewSet, PageViewSet, 
                         ImageViewSet, HomePageViewSet, CategoryPostsView, 
-                        TagPostsView, MenuItemViewSet)
+                        TagPostsView, MenuItemViewSet, SocialViewSet)
 from content.admin import my_admin_site
 
 router = DefaultRouter()
@@ -15,6 +15,7 @@ router.register(r'posts', PostViewSet, basename='post')
 router.register(r'categories', CategoryViewSet, basename='category')
 router.register(r'tags', TagViewSet, basename='tag')
 router.register(r'images', ImageViewSet, basename='image')
+router.register(r'social', SocialViewSet, basename='social')
 
 urlpatterns = [
     path('', include(router.urls)), 
@@ -27,6 +28,8 @@ urlpatterns = [
     path('api/<str:lang>/page/<str:slug>/', PageViewSet.as_view({'get': 'by_slug'}), name='page-detail'),
     path('api/<str:lang>/categories/<str:slug>/', CategoryPostsView.as_view(), name='category-posts'),
     path('api/<str:lang>/tags/<str:slug>/', TagPostsView.as_view(), name='tag-posts'),
+    path('api/social/', SocialViewSet.as_view({'get': 'retrieve'}), name='social-detail'),
+
 ]
 
 if settings.DEBUG:
