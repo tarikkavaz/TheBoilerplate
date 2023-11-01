@@ -1,10 +1,19 @@
 import { Category, Post, MetadataProps } from "@/utils/types";
 import Container from "@/components/ui/Container";
 import Link from "next/link";
+import Image from 'next/image';
 import { fetchData, API_URL } from "@/utils/api";
 import { getTranslator } from "next-intl/server";
 import { Metadata, ResolvingMetadata } from "next";
 import { DEFAULT_OG_IMAGE_URL } from '@/lib/config';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export async function generateMetadata(
   { params }: MetadataProps,
@@ -69,13 +78,33 @@ export default async function Page({
       <h1>
         {t("category")}: <span>{title}</span>
       </h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link href={`/${locale}/post/${post.slug}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <div className="grid grid-flow-col grid-cols-3 gap-4">
+          {posts.map((post) => (
+              <>
+                <Card key={post.id}>
+                <Link href={`/post/${post.slug}`}>
+                  <CardHeader>
+                    <CardTitle>{post.title}</CardTitle>
+                    <CardDescription>{post.pageinfo}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                  {post.image && (
+                    <div className="relative w-full h-[300px]">
+                      <Image
+                        src={post.image}
+                        priority={true}
+                        fill={true}
+                        alt={post.title}
+                        className=" object-cover"
+                      />
+                    </div>
+                  )}
+                  </CardContent>
+                  </Link>
+                </Card>
+              </>
+          ))}
+        </div>
     </Container>
     </>
   );
