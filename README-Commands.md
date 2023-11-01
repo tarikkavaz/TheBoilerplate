@@ -36,6 +36,6 @@ git pull &&
 docker system prune -a -f &&
 docker-compose -f docker-compose.prod.yml up --build -d &&
 docker-compose exec backend python manage.py migrate &&
-docker-compose exec backend python manage.py loaddata backend/datadump.json &&
+docker-compose exec backend python manage.py loaddata /backend/datadump.json &&
 docker-compose exec backend python manage.py collectstatic
 ```
