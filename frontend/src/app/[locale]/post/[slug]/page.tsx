@@ -73,13 +73,15 @@ export default async function Page({
 
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
 
+        {post.images && post.images.length > 0 && (
         <div className="mt-8">
-        <GlobalCarousel 
-          images={post.images || []} 
-          navigationEnabled={false} 
-          className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
-        />
+          <GlobalCarousel 
+            images={post.images} 
+            navigationEnabled={false} 
+            className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
+          />
         </div>
+        )}
         
         <div className="grid grid-cols-4 gap-4 mt-8">
           {post.images &&
