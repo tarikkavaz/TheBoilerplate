@@ -15,8 +15,15 @@ import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { DEFAULT_OG_IMAGE_URL } from "@/lib/config";
-
 import { Metadata, ResolvingMetadata } from "next";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 const getHomepage = async (): Promise<Homepage[]> => {
   const locale = useLocale();
@@ -64,7 +71,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
           className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
         />
       </Container>
-      <Container className="p-10 mt-16" id="content">
+      <Container className="pt-10 px-10 mt-16" id="content">
         <div className="grid grid-cols-3 gap-4 mt-8">
           {homepage.images &&
             homepage.images.map((image: ContentImage) => (
@@ -109,36 +116,32 @@ export default async function Posts({ params: { locale } }: HomeProps) {
         <div dangerouslySetInnerHTML={{ __html: homepage.content }} />
         <hr className="h-0.5 my-10 bg-accent" />
         <h2 className="mt-16">{t("posts")}</h2>
-        <div className="grid grid-cols-3 gap-4 mt-8">
-          {homepage.posts &&
-            homepage.posts.map((post) => (
-              <div key={post.id}>
-                <Link
-                  href={`/post/${post.slug}`}
-                  className="flex flex-col gap-3"
-                >
-                  <h5>{post.title}</h5>
-                  <picture>
-                    <Image
-                      src={post.image ? post.image : "/placeholder.jpg"}
-                      width={500}
-                      height={250}
-                      alt={post.title}
-                      className="bg-accent"
-                    />
-                  </picture>
-
-                  <div dangerouslySetInnerHTML={{ __html: post.pageinfo }} />
-                </Link>
-              </div>
-            ))}
-        </div>
       </Container>
       <Container>
-      <GlobalCarousel 
-          images={homepage.images || []} 
-          className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
-        />
+        <div className="grid grid-cols-3 gap-4">
+          {homepage.posts &&
+            homepage.posts.map((post) => (
+              <Card key={post.id}>
+                <Link href={`/post/${post.slug}`}>
+                  <CardHeader>
+                    <CardTitle>{post.title}</CardTitle>
+                    <CardDescription>{post.pageinfo}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="relative w-full h-[300px]">
+                      <Image
+                        src={post.image ? post.image : "/placeholder.jpg"}
+                        priority={true}
+                        fill={true}
+                        alt={post.title}
+                        className=" object-cover"
+                      />
+                    </div>
+                  </CardContent>
+                </Link>
+              </Card>
+            ))}
+          </div>
       </Container>
     </>
   );
