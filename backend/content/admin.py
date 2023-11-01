@@ -164,8 +164,6 @@ class SocialAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('order',)
     fields = ('facebook', 'twitter', 'instagram', 'threads', 'youtube', 'order')
 
-
-
 my_admin_site.register(MenuItem, MenuItemAdmin)
 my_admin_site.register(Category)
 my_admin_site.register(Tag)
