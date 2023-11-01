@@ -9,6 +9,7 @@ import { getTranslator } from "next-intl/server";
 import { Metadata, ResolvingMetadata } from "next";
 import { DEFAULT_OG_IMAGE_URL } from "@/lib/config";
 import { GlobalCarousel } from "@/components/animation/GlobalCarousel";
+import { badgeVariants } from "@/components/ui/badge"
 
 export async function generateMetadata(
   { params }: MetadataProps,
@@ -97,30 +98,25 @@ export default async function Page({
             ))}
         </div>
 
-        {post.categories.length > 0 && (
+        
+      </Container>
+      <Container>
+      {post.categories.length > 0 && (
           <div className="mt-16">
             <h3 className="mb-3 text-base">{t("categories")}:</h3>
-            <ul>
               {post.categories.map((category) => (
-                <li key={category.slug}>
-                  <Link href={`/${locale}/category/${category.slug}`}>
-                    {category.title}
-                  </Link>
-                </li>
+                <Link key={category.slug} href={`/${locale}/category/${category.slug}`} className={`${badgeVariants({ variant: "default" })} mr-1`}>{category.title}</Link>
               ))}
-            </ul>
           </div>
         )}
         {post.tags.length > 0 && (
           <div className="mt-5">
             <h3 className="mb-3 text-base">{t("tags")}:</h3>
-            <ul>
+            
               {post.tags.map((tag) => (
-                <li key={tag.slug}>
-                  <Link href={`/${locale}/tag/${tag.slug}`}>{tag.title}</Link>
-                </li>
+                <Link key={tag.slug} href={`/${locale}/tag/${tag.slug}`} className={`${badgeVariants({ variant: "secondary" })} mr-1`}>{tag.title}</Link>
               ))}
-            </ul>
+            
           </div>
         )}
       </Container>
