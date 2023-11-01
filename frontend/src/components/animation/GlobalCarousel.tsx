@@ -3,10 +3,10 @@
 import { FC } from 'react';
 import { ContentImage } from "@/utils/types";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css/bundle";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import {GlobalCarouselProps} from "@/utils/types";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/bundle";
 
 export const GlobalCarousel: FC<GlobalCarouselProps> = ({
   images,

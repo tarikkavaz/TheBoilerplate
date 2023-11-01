@@ -1,14 +1,12 @@
 "use client";
 import * as React from "react";
 import Link from "next/link";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Container from "@/components/ui/Container";
 import { fetchData, SERVER_IP } from "@/utils/api";
 import {
   MenuItem,
-  MobileMenuOpenProps,
-  NavItem,
-  NavbarProps,
+  MobileMenuOpenProps
 } from "@/utils/types";
 import { useLocale, useTranslations } from "next-intl";
 import ThemeSwitcher from "@/components/ThemeSwitcher";

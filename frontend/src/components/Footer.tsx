@@ -1,6 +1,6 @@
 "use client";
 import Container from "@/components/ui/Container";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 

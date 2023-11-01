@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment } from "react";
 import { Disclosure, Popover, Transition } from "@headlessui/react";
 import { NavbarProps } from "@/utils/types";
 import { Bars3Icon } from "@heroicons/react/24/outline";
