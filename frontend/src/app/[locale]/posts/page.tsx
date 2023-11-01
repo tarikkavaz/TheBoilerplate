@@ -57,17 +57,15 @@ export default async function Posts({ params: { locale } }: MetadataProps) {
                     <CardDescription>{post.pageinfo}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                  {post.image && (
                     <div className="relative w-full h-[300px]">
                       <Image
-                        src={post.image}
+                        src={post.image ? post.image : "/placeholder.jpg"}
                         priority={true}
                         fill={true}
                         alt={post.title}
                         className=" object-cover"
                       />
                     </div>
-                  )}
                   </CardContent>
                   </Link>
                 </Card>
