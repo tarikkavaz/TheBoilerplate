@@ -1146,10 +1146,10 @@ lucide-react@^0.279.0:
   resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.279.0.tgz#05cdd709f3cc8b40846abf8929896ec75d684c2d"
   integrity sha512-LJ8g66+Bxc3t3x9vKTeK3wn3xucrOQGfJ9ou9GsBwCt2offsrT2BB90XrTrIzE1noYYDe2O8jZaRHi6sAHXNxw==
 
-lucide@^0.287.0:
-  version "0.287.0"
-  resolved "https://registry.yarnpkg.com/lucide/-/lucide-0.287.0.tgz#ae0301e174b898d22ad1c459f8fcd7b9cd585e91"
-  integrity sha512-PbnhhAiVSBgy2V+2Y/aRdBhUQVXLwG9KnWGIB+cv372A7HWWdDc4XFQQAby5u9rDJplUX7de3SrdaNapTaBf4g==
+lucide@^0.300.0:
+  version "0.300.0"
+  resolved "https://registry.yarnpkg.com/lucide/-/lucide-0.300.0.tgz#c4f1a7be8b109be19243e944f086c9126f9d6ce8"
+  integrity sha512-aioqzx9hgnYzm7HhNAZR7lHd32zlnJlIweo1JxCf9xXGEEj90f05RMhaq1tY5nz20WUW7ZFOZ9sXVvlv3zs0Iw==
 
 merge2@^1.3.0:
   version "1.4.1"
