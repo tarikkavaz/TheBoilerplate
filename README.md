@@ -39,8 +39,9 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     
 3. **Install Frontend Dependencies and Build**
     ```bash
-    (cd frontend && yarn)
-    (cd frontend && yarn build)
+    cd frontend && 
+    yarn &&
+    yarn build
     ```
 
 4. **Build and Run Docker Containers**
