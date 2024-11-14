@@ -3,7 +3,7 @@ import clsx from 'clsx'
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   as?: string
-  size?: 'default' | 'md' | 'lg' | 'fluid'
+  size?: 'default' | 'md' | 'lg' | 'fluid' | 'full'
   children: React.ReactNode
 }
 
@@ -19,6 +19,7 @@ const Container: React.FC<ContainerProps> = ({
     lg: 'max-w-screen-lg mx-auto px-4',
     default: 'max-w-screen-xl mx-auto px-4',
     fluid: 'w-full mx-auto px-4',
+    full: 'w-full mx-auto',
   }
   return React.createElement(
     as,

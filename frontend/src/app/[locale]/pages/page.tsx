@@ -57,7 +57,7 @@ export default async function Pages({ params: { locale } }: MetadataProps) {
                   </CardHeader>
                   <CardContent>
                   {page.image && (
-                    <div className="relative w-full h-[300px]">
+                    <div className="relative w-full h-32">
                       <Image
                         src={page.image}
                         priority={true}

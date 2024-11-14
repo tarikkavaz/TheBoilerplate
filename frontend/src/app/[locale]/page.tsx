@@ -64,8 +64,8 @@ export default async function Posts({ params: { locale } }: HomeProps) {
   const t = await getTranslations("Globals");
   return (
     <>
-      <Container size="fluid">
-      <GlobalCarousel 
+      <Container size="full">
+        <GlobalCarousel 
           images={homepage.images || []} 
           className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
         />
@@ -103,7 +103,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
                     <CardDescription>{post.pageinfo}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="relative w-full h-[300px]">
+                    <div className="relative w-full h-32">
                       <Image
                         src={post.image ? post.image : "/placeholder.jpg"}
                         priority={true}
