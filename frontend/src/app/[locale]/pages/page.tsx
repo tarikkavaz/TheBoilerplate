@@ -62,6 +62,7 @@ export default async function Pages({ params: { locale } }: MetadataProps) {
                         src={page.image}
                         priority={true}
                         fill={true}
+                        sizes="(max-width: 640px) 100vw, 640px"
                         alt={page.title}
                         className=" object-cover"
                       />

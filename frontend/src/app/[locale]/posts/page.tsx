@@ -61,8 +61,9 @@ export default async function Posts({ params: { locale } }: MetadataProps) {
                         src={post.image ? post.image : "/placeholder.jpg"}
                         priority={true}
                         fill={true}
+                        sizes="(max-width: 640px) 100vw, 640px"
                         alt={post.title}
-                        className=" object-cover"
+                        className="object-cover bg-accent w-full h-auto"
                       />
                     </div>
                   </CardContent>

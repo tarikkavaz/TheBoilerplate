@@ -1,7 +1,15 @@
 // frontend/src/components/DialogImage.tsx
 "use client";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import Image from "next/image";
 import { ContentImage } from "@/utils/types";
 
@@ -25,6 +33,10 @@ export default function DialogImage({ image }: DialogImageProps) {
         </picture>
       </DialogTrigger>
       <DialogContent className="min-w-[90%] max-h-[90%]">
+        <DialogHeader className="hidden">
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
         <picture key={image.id}>
           <Image
             src={image.image}
@@ -35,6 +47,7 @@ export default function DialogImage({ image }: DialogImageProps) {
             className="bg-accent w-full h-auto"
           />
         </picture>
+        <DialogFooter className="hidden"></DialogFooter>
       </DialogContent>
     </Dialog>
   );
