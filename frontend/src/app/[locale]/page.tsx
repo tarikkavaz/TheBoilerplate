@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { fetchData, API_URL, SERVER_IP } from "@/utils/api";
 import { useLocale } from "next-intl";
-import { getTranslator } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import { Loader2 } from "lucide-react";
@@ -35,7 +35,7 @@ export async function generateMetadata(
   { params }: MetadataProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const t = await getTranslator(params.locale, "Globals");
+  const t = await getTranslations("Globals");
   const posts = await getHomepage();
   const firstPost = posts[0];
 
@@ -61,7 +61,7 @@ export async function generateMetadata(
 export default async function Posts({ params: { locale } }: HomeProps) {
   const posts = await getHomepage();
   const homepage = posts[0];
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
   return (
     <>
       <Container size="fluid">

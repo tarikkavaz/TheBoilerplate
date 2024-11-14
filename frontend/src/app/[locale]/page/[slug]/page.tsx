@@ -1,9 +1,9 @@
-import { Page, ContentImage, MetadataProps } from "@/utils/types";
+import type { Page, ContentImage, MetadataProps } from "@/utils/types";
 import Container from "@/components/ui/Container";
 import Image from "next/image";
 import { fetchData, API_URL } from "@/utils/api"; // Imported API_URL
 import { useLocale } from "next-intl";
-import { getTranslator } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Metadata, ResolvingMetadata } from "next";
 import { DEFAULT_OG_IMAGE_URL } from "@/lib/config";
 
@@ -11,7 +11,7 @@ export async function generateMetadata(
   { params }: MetadataProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const t = await getTranslator(params.locale, "Globals");
+  const t = await getTranslations("Globals");
   const page = await getPage(params.slug);
 
   const imageUrl = page.image ? page.image : DEFAULT_OG_IMAGE_URL;
@@ -44,7 +44,7 @@ export default async function Page({
   };
 }) {
   const page = await getPage(slug);
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
 
   return (
     <Container className="py-10" id="content">

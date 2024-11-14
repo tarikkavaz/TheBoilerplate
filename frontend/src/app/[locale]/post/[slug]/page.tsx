@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useLocale } from "next-intl";
 import { fetchData, API_URL } from "@/utils/api";
 import { formatDate } from "@/utils/date";
-import { getTranslator } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Metadata, ResolvingMetadata } from "next";
 import { DEFAULT_OG_IMAGE_URL } from "@/lib/config";
 import { GlobalCarousel } from "@/components/animation/GlobalCarousel";
@@ -15,7 +15,7 @@ export async function generateMetadata(
   { params }: MetadataProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const t = await getTranslator(params.locale, "Globals");
+  const t = await getTranslations("Globals");
   const slug = params.slug;
   const post = await getPost(slug);
 
@@ -49,7 +49,7 @@ export default async function Page({
   };
 }) {
   const post = await getPost(slug);
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
 
   return (
     <>

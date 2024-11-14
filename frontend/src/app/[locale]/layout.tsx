@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { getTranslator } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Layout } from "@/utils/types";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -15,7 +15,7 @@ const locales = ["en", "tr"];
 const inter = Inter({ subsets: ["latin"] });
 
 export async function getMetadata(locale: string): Promise<Metadata> {
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
 
   const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_LOCAL!),

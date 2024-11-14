@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from 'next/image';
 import { fetchData, API_URL } from "@/utils/api";  // Imported API_URL
 import { useLocale } from "next-intl";
-import { getTranslator } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { DEFAULT_OG_IMAGE_URL } from '@/lib/config';
 import {
   Card,
@@ -23,7 +23,7 @@ const getPages = async (): Promise<Page[]> => {
 };
 
 export async function generateMetadata({ params: { locale } }: MetadataProps) {
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
 
   const description = `${t("pages")} - ${t("sitedescription")}`;
   const pageTitle = `${t("pages")} | ${t("sitename")}`;
@@ -41,7 +41,7 @@ export async function generateMetadata({ params: { locale } }: MetadataProps) {
 
 export default async function Pages({ params: { locale } }: MetadataProps) {
   const pages = await getPages();
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
   return (
     <>
       <Container className="p-10 mt-16">

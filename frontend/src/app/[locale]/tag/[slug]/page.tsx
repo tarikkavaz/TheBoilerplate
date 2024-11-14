@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import Link from "next/link";
 import Image from 'next/image';
 import { fetchData, API_URL } from "@/utils/api";
-import { getTranslator } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Metadata, ResolvingMetadata } from "next";
 import { DEFAULT_OG_IMAGE_URL } from '@/lib/config';
 import {
@@ -24,7 +24,7 @@ export async function generateMetadata(
   const tags = await getTags();
   const matchedTag = tags.find((tag) => tag.slug === slug);
   const title = matchedTag?.title || "Başlık";
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
 
   const description = `${title} | ${t("tag")} - ${t("sitedescription")}`;
   const pageTitle = `${title} | ${t("sitename")}`;
@@ -69,7 +69,7 @@ export default async function Page({
   const tags = await getTags();
   const matchedTag = tags.find((tag) => tag.slug === slug);
   const title = matchedTag?.title || "Başlık";
-  const t = await getTranslator(locale, "Globals");
+  const t = await getTranslations("Globals");
 
   return (
     <>

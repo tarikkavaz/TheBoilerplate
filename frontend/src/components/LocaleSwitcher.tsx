@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { Fragment, useState, useEffect } from "react";
-import { fetchData, SERVER_IP } from "@/utils/api";
-import { Moon, Sun, Globe } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { usePathname, useRouter } from "next-intl/client";
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import { usePathname, useRouter } from "next/navigation";
+import { Moon, Sun, Globe } from "lucide-react";import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +21,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { fetchData, SERVER_IP } from "@/utils/api";
+
 /* fetchNavigationData */
 async function fetchNavigationData(locale: string) {
   try {
@@ -50,59 +51,58 @@ export default function LocaleSwitcher() {
     const pathParts = pathname.split("/");
     const slug = pathParts.filter((part) => part !== "").pop() || "";
     setSlug(slug);
-
-    async function fetchDataFromApi() {
-      const nextLocale = locale;
-      if (pathname.includes("/page/") || pathname.includes("/sayfa/")) {
-        type = "page";
-        setType(type);
-      } else if (pathname.includes("/post/") || pathname.includes("/yazi/")) {
-        type = "post";
-        setType(type);
-      } else {
-        type = "";
-        setType(type);
-      }
-
-      if (type) {
-        const endpoint = `/api/${nextLocale}/${type}/${slug}`;
-
-        try {
-          const data = await fetchData(SERVER_IP, endpoint);
-          const langSlug = data.langslug;
-          setLangSlug(langSlug);
-        } catch (error) {
-          console.error("Error!:", error);
-        }
-      }
-    }
-
     fetchDataFromApi();
   }, [pathname]);
+
+  async function fetchDataFromApi() {
+    const nextLocale = locale;
+    if (pathname.includes("/page/") || pathname.includes("/sayfa/")) {
+      type = "page";
+      setType(type);
+    } else if (pathname.includes("/post/") || pathname.includes("/yazi/")) {
+      type = "post";
+      setType(type);
+    } else {
+      type = "";
+      setType(type);
+    }
+
+    if (type) {
+      const endpoint = `/api/${nextLocale}/${type}/${slug}`;
+
+      try {
+        const data = await fetchData(SERVER_IP, endpoint);
+        const langSlug = data.langslug;
+        setLangSlug(langSlug);
+      } catch (error) {
+        console.error("Error!:", error);
+      }
+    }
+  }
 
   const handleLocaleChange = async (nextLocale: string) => {
     setIsPending(true);
     if (slug) {
       if (pathname.includes("/page/") && langSlug && locale !== nextLocale) {
-        router.replace(`/sayfa/${langSlug}`, { locale: nextLocale });
+        router.replace(`/${nextLocale}/page/${langSlug}`);
       } else if (
         pathname.includes("/sayfa/") &&
         langSlug &&
         locale !== nextLocale
       ) {
-        router.replace(`/page/${langSlug}`, { locale: nextLocale });
+        router.replace(`/${nextLocale}/page/${langSlug}`);
       } else if (
         pathname.includes("/post/") &&
         langSlug &&
         locale !== nextLocale
       ) {
-        router.replace(`/yazi/${langSlug}`, { locale: nextLocale });
+        router.replace(`/${nextLocale}/post/${langSlug}`);
       } else if (
         pathname.includes("/yazi/") &&
         langSlug &&
         locale !== nextLocale
       ) {
-        router.replace(`/post/${langSlug}`, { locale: nextLocale });
+        router.replace(`/${nextLocale}/post/${langSlug}`);
       } else if (
         locale !== nextLocale &&
         !langSlug &&
@@ -111,12 +111,12 @@ export default function LocaleSwitcher() {
           type === "post" ||
           type === "yazi")
       ) {
-        router.replace("/", { locale: nextLocale });
+        router.replace(`/${nextLocale}`);
       } else {
-        router.replace(pathname, { locale: nextLocale });
+        router.replace(`/${nextLocale}`);
       }
     } else {
-      router.replace("/", { locale: nextLocale });
+      router.replace(`/${nextLocale}`);
     }
     setIsPending(false);
     fetchNavigationData(nextLocale).then((data) => {
@@ -131,8 +131,7 @@ export default function LocaleSwitcher() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
-            <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all " />
-            <span className="sr-only">Toggle Language</span>
+          <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all " />            <span className="sr-only">Toggle Language</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
@@ -144,7 +143,6 @@ export default function LocaleSwitcher() {
                     handleLocaleChange(cur);
                   }
                 }}
-                className="block text-sm p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none cursor-pointer select-none text-foreground  hover:text-foreground hover:bg-background"
               >
                 {t("localeLocale", { locale: cur })}
               </DropdownMenuItem>
