@@ -14,19 +14,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { fetchData, SERVER_IP } from "@/utils/api";
 
-/* fetchNavigationData */
-async function fetchNavigationData(locale: string) {
-  try {
-    const endpoint = `/api/menuitems/`;
-    const response = await fetchData(SERVER_IP, endpoint);
-    const filteredData = response.filter((item: any) => item.lang === locale);
-    return { navigations: filteredData };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
-  }
+interface RouteSegmentMap {
+  [locale: string]: {
+    [key: string]: string;
+  };
 }
-/* end fetchNavigationData */
+
+interface FetchDataResponse {
+  id: string;
+  langslug: string;
+  slug: string;
+  lang: string;
+  [key: string]: any;
+}
 
 export default function LocaleSwitcher() {
   const t = useTranslations("Globals");
@@ -36,35 +36,55 @@ export default function LocaleSwitcher() {
   const pathname = usePathname();
   const [langSlug, setLangSlug] = useState("");
   const [slug, setSlug] = useState("");
-  let [type, setType] = useState("");
+  const [type, setType] = useState("");
+
+  const routeSegmentMap: RouteSegmentMap = {
+    en: {
+      posts: "posts",
+      pages: "pages",
+      post: "post",
+      page: "page",
+    },
+    tr: {
+      posts: "yazilar",
+      pages: "sayfalar",
+      post: "yazi",
+      page: "sayfa",
+    },
+  };
 
   useEffect(() => {
-    const pathParts = pathname.split("/");
-    const slug = pathParts.filter((part) => part !== "").pop() || "";
-    setSlug(slug);
-    fetchDataFromApi();
+    const pathParts = pathname.split("/").filter(Boolean);
+    const currentSlug = pathParts[pathParts.length - 1] || "";
+    setSlug(currentSlug);
+    fetchDataFromApi(currentSlug);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  async function fetchDataFromApi() {
-    const nextLocale = locale;
-    if (pathname.includes("/page/") || pathname.includes("/sayfa/")) {
-      type = "page";
-      setType(type);
-    } else if (pathname.includes("/post/") || pathname.includes("/yazi/")) {
-      type = "post";
-      setType(type);
-    } else {
-      type = "";
-      setType(type);
-    }
+  async function fetchDataFromApi(currentSlug: string) {
+    const pathParts = pathname.split("/").filter(Boolean);
+    let currentType = "";
 
-    if (type) {
-      const endpoint = `/api/${nextLocale}/${type}/${slug}`;
+    if (pathParts.includes("page") || pathParts.includes("sayfa")) {
+      currentType = "page";
+    } else if (pathParts.includes("post") || pathParts.includes("yazi")) {
+      currentType = "post";
+    } else {
+      currentType = "";
+    }
+    setType(currentType);
+
+    if (currentType && currentSlug) {
+      const endpoint = `/api/${currentType}s/`;
 
       try {
-        const data = await fetchData(SERVER_IP, endpoint);
-        const langSlug = data.langslug;
-        setLangSlug(langSlug);
+        const dataList: FetchDataResponse[] = await fetchData(SERVER_IP, endpoint);
+        const dataCurrent = dataList.find(
+          (item) => item.slug === currentSlug && item.lang === locale
+        );
+        if (dataCurrent && dataCurrent.langslug) {
+          setLangSlug(dataCurrent.langslug);
+        }
       } catch (error) {
         console.error("Error!:", error);
       }
@@ -73,50 +93,88 @@ export default function LocaleSwitcher() {
 
   const handleLocaleChange = async (nextLocale: string) => {
     setIsPending(true);
-    if (slug) {
-      if (pathname.includes("/page/") && 
-        langSlug && 
-        locale !== nextLocale) {
-        router.replace(`/${nextLocale}/page/${langSlug}`);
-      } else if (
-        pathname.includes("/sayfa/") &&
-        langSlug &&
-        locale !== nextLocale
-      ) {
-        router.replace(`/${nextLocale}/page/${langSlug}`);
-      } else if (
-        pathname.includes("/post/") &&
-        langSlug &&
-        locale !== nextLocale
-      ) {
-        router.replace(`/${nextLocale}/post/${langSlug}`);
-      } else if (
-        pathname.includes("/yazi/") &&
-        langSlug &&
-        locale !== nextLocale
-      ) {
-        router.replace(`/${nextLocale}/post/${langSlug}`);
-      } else if (
-        locale !== nextLocale &&
-        !langSlug &&
-        (type === "page" ||
-          type === "sayfa" ||
-          type === "post" ||
-          type === "yazi")
-      ) {
-        router.replace(`/${nextLocale}`);
+
+    const pathParts = pathname.split("/").filter(Boolean);
+
+    let newPathParts: string[] = [];
+    let currentType = "";
+    let currentSlug = "";
+    let slugIndex = -1;
+
+    for (let i = 0; i < pathParts.length; i++) {
+      const part = pathParts[i];
+
+      if (i === 0 && (part === "en" || part === "tr")) {
+        // Replace the locale part
+        newPathParts.push(nextLocale);
       } else {
-        router.replace(`/${nextLocale}`);
+        let mappedPart = part;
+
+        // Map the route segment to target locale
+        const routeValues = Object.values(routeSegmentMap[locale]);
+
+        if (routeValues.includes(part)) {
+          // Get the route key
+          const routeKey = Object.keys(routeSegmentMap[locale]).find(
+            (key) => routeSegmentMap[locale][key] === part
+          );
+
+          if (routeKey) {
+            currentType = routeKey; // e.g., 'post' or 'page'
+
+            // Get the mapped route segment in the next locale
+            mappedPart = routeSegmentMap[nextLocale][routeKey];
+          }
+        } else if (currentType) {
+          // This is the slug
+          currentSlug = part;
+          slugIndex = newPathParts.length;
+        }
+
+        newPathParts.push(mappedPart);
       }
-    } else {
-      router.replace(`/${nextLocale}`);
     }
-    setIsPending(false);
-    fetchNavigationData(nextLocale).then((data) => {
-      if (data) {
-        fetchNavigationData(data.navigations);
+
+    // Fetch the corresponding langSlug for the nextLocale
+    if (currentSlug && currentType) {
+      try {
+        const typeToEndpoint: { [key: string]: string } = {
+          post: "posts",
+          page: "pages",
+        };
+
+        const endpointCurrent = `/api/${typeToEndpoint[currentType]}/`;
+        const dataList: FetchDataResponse[] = await fetchData(SERVER_IP, endpointCurrent);
+
+        // Find the item with slug === currentSlug and lang === locale
+        const dataCurrent = dataList.find(
+          (item) => item.slug === currentSlug && item.lang === locale
+        );
+
+        if (dataCurrent && dataCurrent.langslug) {
+          const newLangSlug = dataCurrent.langslug;
+
+          // Replace the slug part in newPathParts
+          if (slugIndex !== -1) {
+            newPathParts[slugIndex] = newLangSlug;
+          }
+        } else {
+          console.error(`Translation for locale ${nextLocale} not found.`);
+          // Redirect to the home page of the next locale
+          newPathParts = [nextLocale];
+        }
+      } catch (error) {
+        console.error("Error fetching data for current slug:", error);
       }
-    });
+    }
+
+    // Construct the new pathname
+    const newPathname = "/" + newPathParts.join("/");
+
+    // Redirect to the new path
+    router.replace(newPathname);
+
+    setIsPending(false);
   };
 
   return (
@@ -124,7 +182,8 @@ export default function LocaleSwitcher() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
-          <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all " />            <span className="sr-only">Toggle Language</span>
+            <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all " />
+            <span className="sr-only">Toggle Language</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
