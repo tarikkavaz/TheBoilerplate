@@ -30,6 +30,12 @@ MODEL_ORDER = {
     'tag': 7,
 }
 
+class MyModelAdmin(admin.ModelAdmin):
+    class Media:  
+        css = {
+             'all': ('/content/css/admin_color.css',)
+        }
+
 class CustomAdminSite(AdminSite):
     def get_app_list(self, request, app_label=None):
         app_dict = self._build_app_dict(request)
