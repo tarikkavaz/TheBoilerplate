@@ -175,12 +175,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <Container>
-          <div className="flex gap-2">
-            <ThemeSwitcher />
-            <LocaleSwitcher />
-          </div>
-        </Container>
         <div className="mt-16 border-t border-border pt-8 sm:mt-20 lg:mt-24">
           <p className="text-xs leading-5 ">
             &copy; {year} {t("sitename")}, {t("copyright")}

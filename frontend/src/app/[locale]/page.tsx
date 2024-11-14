@@ -80,10 +80,11 @@ export default async function Posts({ params: { locale } }: HomeProps) {
                 <Image
                   src={image.image}
                   priority={true}
+                  layout="responsive"
                   width={500}
                   height={300}
                   alt={image.alt_text}
-                  className="bg-accent"
+                  className="bg-accent w-full h-auto"
                 />
               </picture>
             ))}
