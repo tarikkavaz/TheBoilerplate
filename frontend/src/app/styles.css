@@ -1,29 +1,4 @@
-/*
-.home-header-logo-light-left,
-.home-header-logo-light-right {
-  width: 50vw;
-  max-width: 1000px;
-  height: 100%;
-  top: 0px;
-  position: absolute;
-  z-index: 1;
-  animation: homeHeaderLight 10s infinite;
-}
-*/
-
-button[data-headlessui-state="open"]::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  width: 9000px;
-  height: 9000px;
-  left: -100vw;
-  top: -50vh;
-  cursor: default;
-  background: rgba(0, 0, 0, 0);
-}
-
+/* Footer */
 .bg-left {
   left: 0;
   background-image: radial-gradient(
@@ -52,4 +27,17 @@ button[data-headlessui-state="open"]::before {
   to {
     opacity: 0;
   }
+}
+
+
+/* Carousel Control */
+.swiper-button-prev, .swiper-button-next {
+  @apply min-h-full !w-12 bg-[hsl(var(--background))]/50 hover:bg-[hsl(var(--background))]/70 !top-0 !mt-0;
+}
+
+.swiper-button-prev {
+  @apply !left-0;
+}
+.swiper-button-next {
+  @apply !right-0;
 }

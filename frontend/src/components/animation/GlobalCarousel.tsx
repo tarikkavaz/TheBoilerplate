@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { ContentImage } from "@/utils/types";
 import Image from "next/image";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import {GlobalCarouselProps} from "@/utils/types";
+import { GlobalCarouselProps } from "@/utils/types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 
@@ -30,7 +30,7 @@ export const GlobalCarousel: FC<GlobalCarouselProps> = ({
       }}
       navigation={navigationEnabled}
       modules={[Autoplay, Pagination, Navigation]}
-      className={className}
+      className={`${className} bg-slate-300 dark:bg-gray-800`} 
     >
       {images &&
         images.map((image: ContentImage) => (
