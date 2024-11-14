@@ -136,6 +136,24 @@ class HomePageAdmin(admin.ModelAdmin):
     list_display = ('title', 'lang')
     list_filter = ('lang',)
 
+    def save_model(self, request, obj, form, change):
+        # Ensure only one HomePage instance per language
+        if not change and HomePage.objects.filter(lang=obj.lang).exists():
+            raise ValidationError(f"A HomePage already exists for the language '{obj.lang}'. Only one homepage is allowed per language.")
+        super().save_model(request, obj, form, change)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == 'posts':
+            if self.instance:
+                # Filter posts by language of the current HomePage instance
+                kwargs["queryset"] = Post.objects.filter(lang=self.instance.lang)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+
+    def get_form(self, request, obj=None, **kwargs):
+        self.instance = obj  # Capture the current instance to filter posts by language
+        form = super().get_form(request, obj, **kwargs)
+        return form
+
 class MenuItemForm(forms.ModelForm):
     class Meta:
         model = MenuItem
@@ -163,6 +181,20 @@ class MenuItemAdmin(SortableAdminMixin, admin.ModelAdmin):
 class SocialAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('order',)
     fields = ('facebook', 'twitter', 'instagram', 'youtube', 'order')
+
+    def has_add_permission(self, request):
+        # Allow adding only if no Social instance exists
+        return not Social.objects.exists()
+
+    def save_model(self, request, obj, form, change):
+        # Ensure only one instance is saved
+        if not change and Social.objects.exists():
+            raise ValidationError("Only one Social instance is allowed.")
+        super().save_model(request, obj, form, change)
+
+    def delete_model(self, request, obj):
+        # Prevent deletion of the Social instance
+        raise ValidationError("The Social instance can't be deleted.")
 
 my_admin_site.register(MenuItem, MenuItemAdmin)
 my_admin_site.register(Category)

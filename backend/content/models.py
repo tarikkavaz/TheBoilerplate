@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.utils.html import format_html
 from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+
 
 class MenuItem(models.Model):
     title = models.CharField(max_length=200)
@@ -139,7 +141,10 @@ class HomePage(models.Model):
     content = RichTextField()
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="home_images")
     posts = models.ManyToManyField('Post', blank=True, verbose_name="Select Posts to display on Homepage")
-    lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
+    lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language", unique=True)
+
+    class Meta:
+        unique_together = ('lang',)
 
     def __str__(self):
         return self.title
