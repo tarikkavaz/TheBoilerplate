@@ -1,26 +1,17 @@
 "use client";
 
-import * as React from "react";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import { Moon, Sun, Globe } from "lucide-react";import { Button } from "@/components/ui/button";
+import { Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import { fetchData, SERVER_IP } from "@/utils/api";
 
 /* fetchNavigationData */
@@ -83,7 +74,9 @@ export default function LocaleSwitcher() {
   const handleLocaleChange = async (nextLocale: string) => {
     setIsPending(true);
     if (slug) {
-      if (pathname.includes("/page/") && langSlug && locale !== nextLocale) {
+      if (pathname.includes("/page/") && 
+        langSlug && 
+        locale !== nextLocale) {
         router.replace(`/${nextLocale}/page/${langSlug}`);
       } else if (
         pathname.includes("/sayfa/") &&
