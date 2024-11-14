@@ -49,7 +49,7 @@ export default async function Page({
   return (
     <Container className="py-10" id="content">
       {page.image && (
-        <div className="my-10 relative w-full h-[500px]">
+        <div className="my-10 relative w-full h-60 md:h-96">
           <Image
             src={page.image}
             priority={true}
@@ -64,7 +64,7 @@ export default async function Page({
 
       <div dangerouslySetInnerHTML={{ __html: page.content }} />
 
-      <div className="grid grid-cols-4 gap-4 mt-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
         {page.images &&
           page.images.map((img: ContentImage) => (
             <picture key={img.id}>

@@ -70,8 +70,10 @@ export default async function Posts({ params: { locale } }: HomeProps) {
           className="h-[200px] md:h-[300px] lg:h-[450px] bg-accent" 
         />
       </Container>
-      <Container className="pt-10 px-10 mt-16" id="content">
-        <div className="grid grid-cols-3 gap-4 mt-8">
+      <Container className="px-10 mt-16" id="content">
+        <h1>{homepage.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: homepage.content }} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {homepage.images &&
             homepage.images.map((image: ContentImage) => (
               <picture key={image.id}>
@@ -86,38 +88,11 @@ export default async function Posts({ params: { locale } }: HomeProps) {
               </picture>
             ))}
         </div>
-        <h1>{homepage.title}</h1>
-        <div className="flex flex-wrap gap-4 p-4 my-16 rounded">
-          <Button>{t("button")}</Button>
-          <Button variant="secondary">
-            {t("button")}
-          </Button>
-          <Button variant="destructive">
-            {t("button")}
-          </Button>
-          <Button variant="outline">
-            {t("button")}
-          </Button>
-          <Button variant="ghost">
-            {t("button")}
-          </Button>
-          <Button variant="link">
-            {t("button")}
-          </Button>
-          <Button>
-            <Mail className="w-4 h-4 mr-2" /> {t("button")}
-          </Button>
-          <Button disabled>
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            {t("wait")}
-          </Button>
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: homepage.content }} />
         <hr className="h-0.5 my-10 bg-accent" />
-        <h2 className="mt-16">{t("posts")}</h2>
       </Container>
       <Container>
-        <div className="grid grid-cols-3 gap-4">
+      <h2 className="mt-16">{t("posts")}</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {homepage.posts &&
             homepage.posts.map((post) => (
               <Card key={post.id}>

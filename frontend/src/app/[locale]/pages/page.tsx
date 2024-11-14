@@ -46,7 +46,7 @@ export default async function Pages({ params: { locale } }: MetadataProps) {
     <>
       <Container className="p-10 mt-16">
         <h1>{t("pages")}</h1>
-        <div className="grid grid-flow-col grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {pages.map((page) => (
               <>
                 <Card key={page.id}>

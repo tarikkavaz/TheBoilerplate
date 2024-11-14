@@ -55,7 +55,7 @@ export default async function Page({
     <>
       <Container className="p-10 mt-16" id="content">
         {post.image && (
-          <div className="my-10 relative w-full h-[500px]">
+          <div className="my-10 relative w-full h-60 md:h-96">
             <Image
               src={post.image}
               priority={true}
@@ -84,7 +84,7 @@ export default async function Page({
         </div>
         )}
         
-        <div className="grid grid-cols-4 gap-4 mt-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {post.images &&
             post.images.map((img: ContentImage) => (
               <picture key={img.id}>
