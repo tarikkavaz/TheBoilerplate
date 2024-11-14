@@ -10,7 +10,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { DEFAULT_OG_IMAGE_URL } from "@/lib/config";
 import { GlobalCarousel } from "@/components/animation/GlobalCarousel";
 import { badgeVariants } from "@/components/ui/badge"
-
+import DialogImage from "@/components/DialogImage";
 export async function generateMetadata(
   { params }: MetadataProps,
   parent: ResolvingMetadata
@@ -87,17 +87,7 @@ export default async function Page({
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {post.images &&
             post.images.map((img: ContentImage) => (
-              <picture key={img.id}>
-                <Image
-                  src={img.image}
-                  priority={true}
-                  layout="responsive"
-                  width={500}
-                  height={300}
-                  alt={img.alt_text}
-                  className="bg-accent w-full h-auto"
-                />
-              </picture>
+              <DialogImage key={img.id} image={img} />
             ))}
         </div>
 

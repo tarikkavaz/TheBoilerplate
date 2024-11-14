@@ -8,12 +8,9 @@ import Container from "@/components/ui/Container";
 import { GlobalCarousel } from "@/components/animation/GlobalCarousel";
 import Link from "next/link";
 import Image from "next/image";
-import { fetchData, API_URL, SERVER_IP } from "@/utils/api";
+import { fetchData, API_URL } from "@/utils/api";
 import { useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
-import { Loader2 } from "lucide-react";
 import { DEFAULT_OG_IMAGE_URL } from "@/lib/config";
 import { Metadata, ResolvingMetadata } from "next";
 import {
@@ -22,7 +19,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
+import DialogImage from "@/components/DialogImage";
 
 const getHomepage = async (): Promise<Homepage[]> => {
   const locale = useLocale();
@@ -76,17 +74,7 @@ export default async function Posts({ params: { locale } }: HomeProps) {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {homepage.images &&
             homepage.images.map((image: ContentImage) => (
-              <picture key={image.id}>
-                <Image
-                  src={image.image}
-                  priority={true}
-                  layout="responsive"
-                  width={500}
-                  height={300}
-                  alt={image.alt_text}
-                  className="bg-accent w-full h-auto"
-                />
-              </picture>
+              <DialogImage key={image.id} image={image} />
             ))}
         </div>
         <hr className="h-0.5 my-10 bg-accent" />
