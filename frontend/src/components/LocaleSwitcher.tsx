@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import { Globe } from "lucide-react";
+import { Globe, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -152,19 +152,32 @@ export default function LocaleSwitcher() {
         );
 
         if (dataCurrent && dataCurrent.langslug) {
-          const newLangSlug = dataCurrent.langslug;
+          // Now, find the item in the target locale with slug === dataCurrent.langslug and lang === nextLocale
+          const dataTarget = dataList.find(
+            (item) => item.slug === dataCurrent.langslug && item.lang === nextLocale
+          );
 
-          // Replace the slug part in newPathParts
-          if (slugIndex !== -1) {
-            newPathParts[slugIndex] = newLangSlug;
+          if (dataTarget && dataTarget.slug) {
+            const newSlug = dataTarget.slug;
+
+            // Replace the slug part in newPathParts
+            if (slugIndex !== -1) {
+              newPathParts[slugIndex] = newSlug;
+            }
+          } else {
+            console.error(`Translation for locale ${nextLocale} not found.`);
+            // Redirect to the home page of the selected locale
+            newPathParts = [nextLocale];
           }
         } else {
-          console.error(`Translation for locale ${nextLocale} not found.`);
-          // Redirect to the home page of the next locale
+          console.error(`Current slug ${currentSlug} not found in current locale.`);
+          // Redirect to the home page of the selected locale
           newPathParts = [nextLocale];
         }
       } catch (error) {
         console.error("Error fetching data for current slug:", error);
+        // Redirect to the home page of the selected locale
+        newPathParts = [nextLocale];
       }
     }
 
@@ -188,17 +201,17 @@ export default function LocaleSwitcher() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {["en", "tr"].map((cur) => (
-            <span key={cur}>
-              <DropdownMenuItem
-                onClick={() => {
-                  if (locale !== cur) {
-                    handleLocaleChange(cur);
-                  }
-                }}
-              >
-                {t("localeLocale", { locale: cur })}
-              </DropdownMenuItem>
-            </span>
+            <DropdownMenuItem
+              key={cur}
+              onClick={() => {
+                if (locale !== cur) {
+                  handleLocaleChange(cur);
+                }
+              }}
+            >
+              {t("localeLocale", { locale: cur })}
+              {locale === cur && <Check className="ml-2 h-4 w-4" />}
+            </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
