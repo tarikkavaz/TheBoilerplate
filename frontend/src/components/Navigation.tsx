@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Fragment } from "react";
 import { Disclosure, Popover, Transition } from "@headlessui/react";
@@ -10,7 +8,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 export default function Navigation({
   links,
   mobileMenuOpen,
-  setMobileMenuOpen
+  setMobileMenuOpen,
 }: NavbarProps) {
   return (
     <>
@@ -32,7 +30,7 @@ export default function Navigation({
         <Popover.Group className="hidden items-center lg:flex lg:gap-x-4">
           {links.map((menuItem) => (
             <Popover key={menuItem.title} className="relative">
-              {({ open }) => (
+              {({ open, close }) => (
                 <>
                   {menuItem.children ? (
                     <Popover.Button className="inline-flex w-full justify-center rounded-md text-sm font-medium focus:outline-none ui-focus-visible:ring-2 ui-focus-visible:ring-offset-2 px-4 py-2 bg-accent/0 hover:bg-accent ">
@@ -78,7 +76,8 @@ export default function Navigation({
                                 rel={
                                   menuItem.newtab ? "noopener noreferrer" : ""
                                 }
-                                className="group -m-3 flex items-start rounded-lg p-3 text-foreground  hover:text-foreground hover:bg-background"
+                                onClick={() => close()} // Close Popover after click
+                                className="group -m-3 flex items-start rounded-lg p-3 text-foreground hover:text-foreground hover:bg-background"
                               >
                                 <div className="ml-4">
                                   <p className="text-base font-medium ">
@@ -118,7 +117,7 @@ export default function Navigation({
                     <Disclosure>
                       {({ open }) => (
                         <>
-                          <Disclosure.Button className="flex items-center justify-stretch w-full rounded-md px-3 py-2 text-base font-medium text-foreground  hover:text-foreground hover:bg-background">
+                          <Disclosure.Button className="flex items-center justify-stretch w-full rounded-md px-3 py-2 text-base font-medium text-foreground hover:text-foreground hover:bg-background">
                             {menuItem.title}
                             <ChevronDownIcon
                               className={`${
@@ -134,8 +133,7 @@ export default function Navigation({
                                   key={submenuItem.title}
                                   href={submenuItem.link}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className="block rounded-md px-3 py-2 text-base font-medium text-foreground
-                                  hover:bg-background hover:text-foreground"
+                                  className="block rounded-md px-3 py-2 text-base font-medium text-foreground hover:bg-background hover:text-foreground"
                                 >
                                   {submenuItem.title}
                                 </Link>
@@ -149,8 +147,7 @@ export default function Navigation({
                     <Link
                       href={menuItem.link}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-foreground
-                                  hover:bg-background hover:text-foreground"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-foreground hover:bg-background hover:text-foreground"
                     >
                       {menuItem.title}
                     </Link>

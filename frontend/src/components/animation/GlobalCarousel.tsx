@@ -30,7 +30,7 @@ export const GlobalCarousel: FC<GlobalCarouselProps> = ({
       }}
       navigation={navigationEnabled}
       modules={[Autoplay, Pagination, Navigation]}
-      className={`${className} bg-slate-300 dark:bg-gray-800`} 
+      className={`${className} `} 
     >
       {images &&
         images.map((image: ContentImage) => (
