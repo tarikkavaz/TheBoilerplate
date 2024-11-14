@@ -18,7 +18,7 @@ export async function generateMetadata(
   const description = `${page.pageinfo} - ${t("sitedescription")}`;
 
   return {
-    title: `${page.title} | ${t("sitename")} xxx`,
+    title: `${page.title} | ${t("sitename")}`,
     description: description,
     openGraph: {
       title: `${page.title} | ${t("sitename")}`,
