@@ -16,6 +16,9 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = ['newtablab.com', 'www.newtablab.com']
 
+# NEXT.js URL configuration
+NEXTJS_URL = os.getenv("NEXTJS_URL", "http://0.0.0.0:3000") if DEBUG else "https://newtablab.com"
+
 # Dynamic CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
     f"http://{host}:{port}" for host in ALLOWED_HOSTS for port in ['8000', '3000']
@@ -90,6 +93,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'config.context_processors.nextjs_url',  # New context processor added
             ],
         },
     },

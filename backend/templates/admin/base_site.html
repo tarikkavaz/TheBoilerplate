@@ -4,7 +4,8 @@
 {% load static %}
 {% block title %}{{ title }} | {% trans "Admin Panel" %}{% endblock %}
 {% block extrastyle %}
-    <link rel="stylesheet" type="text/css" href="{% static "content/css/admin_color.css" %}"/>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static "content/css/admin_color.css" %}"/> -->
+    <!-- <link rel="stylesheet" href="{{ NEXTJS_URL }}/_next/static/css/app/layout.css"> -->
 {% endblock %}
 {% block branding %}
     <h1 id="site-name">{% trans "Admin Panel" %}</h1>

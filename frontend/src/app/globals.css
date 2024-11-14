@@ -141,3 +141,9 @@ h4 {
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Django Admin */
+/* .dashboard #header {
+  @apply bg-black text-white;
+} */
