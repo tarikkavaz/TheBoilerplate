@@ -17,7 +17,6 @@ export default function DialogImage({ image }: DialogImageProps) {
           <Image
             src={image.image}
             priority={true}
-            layout="responsive"
             width={500}
             height={300}
             alt={image.alt_text}
@@ -30,7 +29,6 @@ export default function DialogImage({ image }: DialogImageProps) {
           <Image
             src={image.image}
             priority={true}
-            layout="responsive"
             width={500}
             height={300}
             alt={image.alt_text}
