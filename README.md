@@ -45,27 +45,27 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
 
 4. **Build and Run Docker Containers**
     ```bash
-    docker-compose up --build -d
+    docker compose up --build -d
     ```
 
 5. **Initialize Django Database**
     ```bash
-    docker-compose exec backend python manage.py migrate
+    docker compose exec backend python manage.py migrate
     ```
 
 6. **Load Sample Data (Optional)**
     ```bash
-    docker-compose exec backend python manage.py loaddata datadump.json
+    docker compose exec backend python manage.py loaddata datadump.json
     ```
 
 7. **Create Django Superuser (Optional)**
     ```bash
-    docker-compose exec backend python manage.py createsuperuser
+    docker compose exec backend python manage.py createsuperuser
     ```
 
 8. **Stop the Docker**
     ```bash
-    docker-compose down
+    docker compose down
     ```
 ---
 
@@ -75,7 +75,7 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
 
 1. **Build and Run Docker Containers**
     ```bash
-    docker-compose up --build
+    docker compose up --build
     ```
 
 2. **Access the Application**
@@ -118,10 +118,10 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
 4. **Run the Docker**
    
     ```bash
-    docker-compose -f docker-compose.prod.yml up --build -d &&
-    docker-compose exec backend python manage.py migrate &&
-    docker-compose exec backend python manage.py loaddata datadump.json &&
-    docker-compose exec backend python manage.py collectstatic
+    docker compose -f docker compose.prod.yml up --build -d &&
+    docker compose exec backend python manage.py migrate &&
+    docker compose exec backend python manage.py loaddata datadump.json &&
+    docker compose exec backend python manage.py collectstatic
     ```
 
 5. **Run the Deploy Script**
