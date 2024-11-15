@@ -53,14 +53,15 @@ This guide provides instructions for setting up and deploying TheBoilerplate pro
     ```bash
     docker compose exec backend python manage.py migrate
     ```
-    or to create a dump file
-    ```bash
-    docker compose exec backend python manage.py dumpdata > datadump.json
-    ```
+    
 
 6. **Load Sample Data (Optional)**
     ```bash
     docker compose exec backend python manage.py loaddata datadump.json
+    ```
+    or to create a dump file
+    ```bash
+    docker compose exec backend python manage.py dumpdata > datadump.json
     ```
 
 7. **Create Django Superuser (Optional)**
