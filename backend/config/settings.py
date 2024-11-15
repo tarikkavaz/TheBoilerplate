@@ -108,20 +108,41 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 
-# CKEDITOR
-CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Full',
-        'toolbar_Full': [
-            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Undo', 'Redo'],
-            ['BulletedList', 'NumberedList'],
-            ['Link', 'Unlink', 'Anchor'],
-            ['Image', 'Table', 'HorizontalRule'],
-            ['Smiley', 'SpecialChar'], 
-            ['Source'],
-        ]
+# # CKEDITOR
+# CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'Full',
+#         'toolbar_Full': [
+#             ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Undo', 'Redo'],
+#             ['BulletedList', 'NumberedList'],
+#             ['Link', 'Unlink', 'Anchor'],
+#             ['Image', 'Table', 'HorizontalRule'],
+#             ['Smiley', 'SpecialChar'], 
+#             ['Source'],
+#         ]
+#     },
+# }
+
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview']],
+        ],
+        'styleTags': [
+            'p', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre',
+        ],
     },
+    # 'attachment_require_authentication': True,
+    # 'attachment_filesize_limit': 1024 * 1024,  # 1 MB
+    # 'attachment_upload_to': 'uploads/summernote/',
+    # 'attachment_model': 'content.Image',
+    # 'attachment_storage_class': 'django.core.files.storage.FileSystemStorage',
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

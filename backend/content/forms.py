@@ -2,10 +2,10 @@ from django import forms
 from .models import Page, Post, Image
 from .widgets import ImageThumbnailSelectWidget, ImageThumbnailWidget
 from .widgets import ImageThumbnailMultipleSelectWidget
-from ckeditor.widgets import CKEditorWidget
+from django_summernote.widgets import SummernoteWidget
 
 class PageAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget())
+    content = forms.CharField(widget=SummernoteWidget())
     image = forms.ModelChoiceField(queryset=Image.objects.all(),
                                   widget=ImageThumbnailWidget,
                                   required=False)
@@ -15,7 +15,7 @@ class PageAdminForm(forms.ModelForm):
         fields = '__all__'
 
 class PostAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget())
+    content = forms.CharField(widget=SummernoteWidget())
     image = forms.ModelChoiceField(queryset=Image.objects.all(),
                                   widget=ImageThumbnailWidget,
                                   required=False)
