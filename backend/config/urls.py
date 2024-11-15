@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/<str:lang>/categories/<str:slug>/', CategoryPostsView.as_view(), name='category-posts'),
     path('api/<str:lang>/tags/<str:slug>/', TagPostsView.as_view(), name='tag-posts'),
     path('api/social/', SocialViewSet.as_view({'get': 'retrieve'}), name='social-detail'),
+    path('summernote/', include('django_summernote.urls')),
 
 ]
 

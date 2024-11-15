@@ -11,6 +11,8 @@ from django.contrib.admin import AdminSite
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from .forms import PageAdminForm, PostAdminForm
 from .widgets import ImageThumbnailSelectWidget, ImageThumbnailWidget
+from django_summernote.widgets import SummernoteWidget
+from django_summernote.admin import SummernoteModelAdmin
 
 # Define a custom order for apps and models
 APP_ORDER = {
@@ -76,7 +78,7 @@ class ImageAdmin(admin.ModelAdmin):
     list_display = ('alt_text', 'image_thumbnail')
 
 class PostAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget())
+    content = forms.CharField(widget=SummernoteWidget())
     images = forms.ModelChoiceField(queryset=Image.objects.all(),
                                 widget=ImageThumbnailWidget,
                                 required=False)
@@ -85,7 +87,8 @@ class PostAdminForm(forms.ModelForm):
         model = Post
         fields = '__all__'
 
-class PostAdmin(SortableAdminMixin, admin.ModelAdmin):
+class PostAdmin(SummernoteModelAdmin, SortableAdminMixin, admin.ModelAdmin):
+    summernote_fields = ('content',)
     form = PostAdminForm
     inlines = [ImageInlinePost]
     readonly_fields = ('image_thumbnail',)
@@ -105,7 +108,7 @@ class PostAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_filter = ('lang',)
 
 class PageAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget())
+    content = forms.CharField(widget=SummernoteWidget())
     images = forms.ModelChoiceField(queryset=Image.objects.all(),
                                 widget=ImageThumbnailWidget,
                                 required=False)
@@ -114,7 +117,8 @@ class PageAdminForm(forms.ModelForm):
         model = Page
         fields = '__all__'
 
-class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
+class PageAdmin(SummernoteModelAdmin, SortableAdminMixin, admin.ModelAdmin):
+    summernote_fields = ('content',)
     form = PageAdminForm
     inlines = [ImageInlinePage]
     readonly_fields = ('image_thumbnail',)
@@ -132,7 +136,8 @@ class PageAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('title', 'lang', 'order')
     list_filter = ('lang',)
 
-class HomePageAdmin(admin.ModelAdmin):
+class HomePageAdmin(SummernoteModelAdmin, admin.ModelAdmin):
+    summernote_fields = ('content',)
     inlines = [ImageInlineHomePage]
     fieldsets = (
         ('HomePage', {
@@ -149,7 +154,7 @@ class HomePageAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == 'posts':
+        if (db_field.name == 'posts'):
             if self.instance:
                 # Filter posts by language of the current HomePage instance
                 kwargs["queryset"] = Post.objects.filter(lang=self.instance.lang)

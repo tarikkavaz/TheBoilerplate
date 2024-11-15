@@ -34,10 +34,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'content',
-    'ckeditor',
-    'ckeditor_uploader',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
     'adminsortable2',
     'django_select2',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [

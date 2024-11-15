@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 from django.utils.html import format_html
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
+from django_summernote.fields import SummernoteTextField
 
 
 class MenuItem(models.Model):
@@ -62,7 +63,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, verbose_name="Post URL")
     langslug = models.CharField(max_length=255, blank=True, verbose_name="Translation Link")
     pageinfo = models.TextField(blank=True, verbose_name="Page Description")
-    content = RichTextField(verbose_name="Post Content")
+    content = SummernoteTextField(verbose_name="Post Content")
     image = models.ForeignKey('Image', on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Selected Cover Image", related_name="post_selected_image")
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="post_images")
     date_posted = models.DateTimeField(auto_now_add=True, blank=True)
@@ -96,7 +97,7 @@ class Page(models.Model):
     langslug =models.CharField(max_length=255, blank=True, verbose_name="Translation Link")
     # menu = models.BooleanField(default=True, verbose_name="Add to Menu")
     pageinfo = models.TextField(blank=True, verbose_name="Page Description")
-    content = RichTextField(verbose_name="Page Content")
+    content = SummernoteTextField(verbose_name="Page Content")
     image = models.ForeignKey('Image', on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Selected Cover Image", related_name="page_selected_image")
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="page_images")
     lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language")
@@ -138,7 +139,7 @@ class Image(models.Model):
 class HomePage(models.Model):
     title = models.CharField(max_length=255, verbose_name="Site Title")
     pageinfo = models.TextField(blank=True, verbose_name="Site Description")
-    content = RichTextField()
+    content = SummernoteTextField()
     images = models.ManyToManyField('Image', blank=True, verbose_name="Select Content Images", related_name="home_images")
     posts = models.ManyToManyField('Post', blank=True, verbose_name="Select Posts to display on Homepage")
     lang = models.CharField(max_length=7, choices=settings.LANGUAGES, default='en', blank=True, verbose_name="Language", unique=True)
